@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+
+ 
+
+
+
+
+{% block orangeblkocs %}
+
+    <section class="ftco-section-3 img" style="background-image: url('{{ asset('images/bg_3.jpg') }}');">    	<div class="overlay"></div>
+        <div class="container">
+            <div class="row d-md-flex">
+                <div class="col-md-6 d-flex ftco-animate">
+                    <div class="img img-2 align-self-stretch" style="background-image: url('{{ asset('images/bg_4.jpg') }}');"></div>
+                </div>
+                <div class="col-md-6 volunteer pl-md-5 ftco-animate">
+                    <h3 class="mb-3">Ajout Evenement</h3>
+                    
+                    
+
+     {{ form_start(f, {'attr': {'style': 'width: 100%;'}}) }}
+                                    <div style="margin-bottom: 20px;">
+                                        <div style="margin-bottom: 10px;">
+                                            {{ form_label(f.nom) }}
+                                            {{ form_widget(f.nom) }}
+                                            {{ form_errors(f.nom) }}
+                                        </div>
+                                        <div style="margin-bottom: 10px;">
+                                            {{ form_label(f.lieu) }}
+                                            {{ form_widget(f.lieu) }}
+                                            {{ form_errors(f.lieu) }}
+                                        </div>
+                                        <div style="margin-bottom: 10px;">
+                                            {{ form_label(f.date) }}
+                                            {{ form_widget(f.date) }}
+                                            {{ form_errors(f.date) }}
+                                        </div>
+                                        <!-- Render other form fields similarly -->
+                                    </div>
+                                    {{ form_end(f) }}
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

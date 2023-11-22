@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+{% block orangeblkocs %}
+{% endblock %}
+{% block whiteblocs %}
+{% endblock %}
+{% block causes %}
+{% endblock %}
+{% block donations %}
+{% endblock %}
+{% block pictures %}
+{% endblock %}
+{% block blog %}
+{% endblock %}
+{% block events %}
+{% endblock %}
+
+{% block volunteer %}
+    <section class="ftco-section-3 img" style="background-image: url('{{ asset('images/bg_3.jpg') }}');">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row d-md-flex">
+                <div class="col-md-6 d-flex ftco-animate">
+                    <div class="img img-2 align-self-stretch" style="background-image: url('{{ asset('images/bg_4.jpg') }}');"></div>
+                </div>
+                <div class="col-md-6 volunteer pl-md-5 ftco-animate">
+                    <h3 class="mb-3">Ajout Participation</h3>
+                    <form action="#" class="volunteer-form" method="post">
+                        {{ form_start(form) }}
+                        <div class="form-group">
+                            {{ form_row(form.nom, {'attr': {'class': 'form-control', 'placeholder': 'Nom'}}) }}
+                        </div>
+                        <div class="form-group">
+                            {{ form_row(form.num, {'attr': {'class': 'form-control', 'placeholder': 'Numéro'}}) }}
+                        </div>
+                        <div class="form-group">
+                            {{ form_row(form.mail, {'attr': {'class': 'form-control', 'placeholder': 'Email'}}) }}
+                        </div>
+                        <button type="submit" class="btn btn-primary">Ajouter</button>
+                        <a href="{{ path('generate_pdf', { 'nom': form.nom.vars.value, 'num': form.num.vars.value, 'mail': form.mail.vars.value }) }}" class="btn btn-secondary">Imprimer en PDF</a>
+                        {{ form_end(form) }}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

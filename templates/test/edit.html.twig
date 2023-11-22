@@ -1,0 +1,14 @@
+
+{% extends 'base.html.twig' %}
+
+{% block orangeblkocs %}
+    <h1>Edit Test</h1>
+
+    <form method="post">
+        {{ form_widget(form) }}
+     
+    </form>
+
+    <a href="{{ path('app_find') }}">Back to list</a>
+</body>
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block orangeblkocs %}
+    <div class="hero-wrap" style="background-image: url('{{ asset('images/bg_7.jpg') }}');" data-stellar-background-ratio="0.5">      
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row no-gutters slider-text align-items-center justify-content-center" data-scrollax-parent="true">
+                <div class="col-md-7 ftco-animate text-center" data-scrollax=" properties: { translateY: '70%' }">
+                    <h1 class="mb-4" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Ne rien faire n'est pas une option de notre vie</h1>
+                    <p data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><a href="https://vimeo.com/45830194" class="btn btn-white btn-outline-white px-4 py-3 popup-vimeo"><span class="icon-play mr-2"></span>Voir la vidéo</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <section class="ftco-counter ftco-intro" id="section-counter">
+        <div class="container">
+            <div class="row">
+                {% for a in event %}
+                    <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                        <div class="card">
+                            <img src="{{ asset('uploads/' ~ a.path) }}" class="card-img-top" alt="Image de l'événement" style="height: 300px; object-fit: cover;">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ a.nom }}</h5>
+                                <p class="card-text"><strong>Lieu:</strong> {{ a.lieu }}</p>
+                                <p class="card-text"><strong>Date:</strong> {{ a.date }}</p>
+                                <div class="text-center">
+                                    <!-- Affichage du nombre de participants pour chaque événement -->
+                                    <p>Nombre de participants : {{ participantsCounts[a.id] ?? 0 }}</p>
+                                    <!-- Remplacez "a.id" par l'attribut ID correct dans votre objet "Event" -->
+                                </div>
+                                <div class="text-center">
+                                    {% if participantsCounts[a.id] is defined and participantsCounts[a.id] > 6 %}
+                                        <!-- Désactiver le bouton lorsque le nombre de participants est supérieur à 17 -->
+                                         <button class="btn btn-primary" onclick="return false;" disabled>Complet</button>
+                                    {% else %}
+                                        <!-- Activer le bouton "Participer" -->
+                                        <a href="{{ path('app_add_participant', {'id': a.id}) }}" class="btn btn-primary">Participer</a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endblock %}
