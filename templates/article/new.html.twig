@@ -1,0 +1,87 @@
+{% extends 'base.html.twig' %}
+
+{% block whiteblocs %}
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6 text-center">
+                <h1>Ajouter un appel au don</h1>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block orangeblkocs %}
+    <div class="hero-wrap" style="background-image: url('{{ asset('images/bg_7.jpg') }}');" data-stellar-background-ratio="0.5">      
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row no-gutters slider-text align-items-center justify-content-center" data-scrollax-parent="true">
+                <div class="col-md-7 ftco-animate text-center" data-scrollax=" properties: { translateY: '70%' }">
+                    <h1 class="mb-4" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Chaque acte compte, chaque cœur fait la différence !</h1>
+                    <p data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">
+                        <a href="https://vimeo.com/45830194" class="btn btn-white btn-outline-white px-4 py-3 popup-vimeo">
+                            <span class="icon-play mr-2"></span>Voir la vidéo
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block causes %}
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6 mx-auto">
+                {{ form_start(form, {'attr': {'class': 'form', 'novalidate': 'novalidate', 'enctype': 'multipart/form-data'}}) }}
+                
+                <div class="form-group row">
+                    <div class="col-md-6">
+                        {{ form_label(form.ville, "Ville", {'label_attr': {'class': 'control-label'}}) }}
+                        {{ form_widget(form.ville, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_errors(form.ville) }}
+                    </div>
+                    
+                    <div class="col-md-6">
+                        {{ form_label(form.creationDate, "Date limite de collecte des dons", {'label_attr': {'class': 'control-label'}}) }}
+                        {{ form_widget(form.creationDate, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_errors(form.creationDate) }}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    {{ form_label(form.description, "Description", {'label_attr': {'class': 'control-label'}}) }}
+                    {{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(form.description) }}
+                </div>
+
+                <div class="form-group">
+                    {{ form_label(form.contact, "Contact", {'label_attr': {'class': 'control-label'}}) }}
+                    {{ form_widget(form.contact, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(form.contact) }}
+                </div>
+
+                <div class="form-group">
+                    {{ form_label(form.image, "Image de l'appel au don", {'label_attr': {'class': 'control-label'}}) }}
+                    {{ form_widget(form.image, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(form.image) }}
+                </div>
+<div class="form-group text-center">
+    <a href="{{ path('app_article_index') }}" class="btn btn-secondary mt-3 mr-2">Annuler</a>
+    {{ form_widget(form.save, {'attr': {'class': 'btn btn-primary mt-3'}}) }}
+</div>
+
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}{% block donations %}{% endblock %}
+
+{% block pictures %}{% endblock %}
+
+{% block blog %}{% endblock %}
+{% block events %}{% endblock %}
+
+{% block volunteer %}{% endblock %}
+
+
+
+

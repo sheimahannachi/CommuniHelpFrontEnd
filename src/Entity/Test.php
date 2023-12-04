@@ -26,8 +26,9 @@ class Test
 
     #[ORM\Column(length: 100)]
     private ?string $path = null;
+    
 
-    #[ORM\OneToMany(mappedBy: 'test', targetEntity: Participants::class)]
+    #[ORM\OneToMany(mappedBy: 'test', targetEntity: Participants::class,cascade: ['remove'])]
     private Collection $participants;
 
     public function __construct()

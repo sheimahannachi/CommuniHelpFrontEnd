@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block orangeblkocs %}
+    <div class="hero-wrap" style="background-image: url('{{ asset('images/bg_7.jpg') }}');" data-stellar-background-ratio="0.5">      
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row no-gutters slider-text align-items-center justify-content-center" data-scrollax-parent="true">
+                <div class="col-md-7 ftco-animate text-center" data-scrollax=" properties: { translateY: '70%' }">
+                    <h1 class="mb-4" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Chaque acte compte, chaque cœur fait la différence !</h1>
+                    <p data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">
+                        <a href="https://vimeo.com/45830194" class="btn btn-white btn-outline-white px-4 py-3 popup-vimeo">
+                            <span class="icon-play mr-2"></span>Voir la vidéo
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block whiteblocs %}{% endblock %}
+
+{% block causes %}
+<div class="text-center mb-4">
+    <div class="details-container">
+                <h2 class="mb-3" style="font-size: 30px; color: #000;"><strong>Détails de l'appel aux dons</strong></h2>
+
+        {% if article.image is not null %}
+            <img src="{{ asset('images/' ~ article.image) }}" alt="Article Image" style="width: 20%; border-radius: 8px 8px 0 0; display: block; margin: 0 auto;">
+        {% endif %}
+        <div class="details-box" style="text-align: center;">
+            <p style="font-size: 20px; color: #000;"><strong>Ville:</strong> {{ article.ville }}</p>
+            <p style="font-size: 20px; color: #000;"><strong>Description:</strong> {{ article.description }}</p>
+            <p style="font-size: 20px; color: #000;"><strong>Contact:</strong> {{ article.contact }}</p>
+            <p style="font-size: 20px; color: #000;"><strong>Date de fin de l'appel au don :</strong> {{ article.creationDate ? article.creationDate|date('Y-m-d') : 'N/A' }}</p>
+                
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block donations %}{% endblock %}
+{% block pictures %}{% endblock %}
+{% block blog %}{% endblock %}
+{% block events %}{% endblock %}
+{% block volunteer %}{% endblock %}
+
+{% block footer %}
+    <style>
+        footer.ftco-footer {
+            max-height: 33vh; /* 1/3 de la hauteur de la vue */
+            overflow-y: auto; /* Ajout d'une barre de défilement si le contenu dépasse */
+        }
+    </style>
+
+    <footer class="ftco-footer ftco-section img">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col-md-12">
+                    <p>À Propos de Nous</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+{% endblock %}

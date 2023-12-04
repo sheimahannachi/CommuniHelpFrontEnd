@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block Blog %}
+        <div class="container mt-5">
+        <h2 class="mb-4">Confirmation de l'Achat</h2>
+
+        <p>Merci pour votre achat. Votre paiement a été traité avec succès.</p>
+
+        <p>Numéro de référence du paiement : {{ paymentIntentId }}</p>
+
+        <!-- Vous pouvez ajouter d'autres détails de confirmation ici -->
+
+        <a href="{{ path('app_livraison_p_index') }}" class="btn btn-success mt-3">Retour à la Boutique</a>
+    </div>
+
+{% endblock %}
+

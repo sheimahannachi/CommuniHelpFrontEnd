@@ -1,0 +1,49 @@
+<?php
+namespace App\Service;
+
+use Symfony\Contracts\HttpClient\HttpClientInterface;
+
+class AxiosService
+{
+    private $httpClient;
+    private $apiKey;
+    private $apiHost;
+
+    public function __construct(HttpClientInterface $httpClient, string $apiKey, string $apiHost)
+    {
+        $this->httpClient = $httpClient;
+        $this->apiKey = $apiKey;
+        $this->apiHost = $apiHost;
+    }
+
+    public function translateText(string $text): string
+{
+    $apiKey = '020a985271msh63da4e188052ac8p1761aajsn6b9e047c9fb3';
+    $host = 'text-translator2.p.rapidapi.com';
+    $url = 'https://text-translator2.p.rapidapi.com/translate';
+
+    $headers = [
+        'content-type' => 'application/x-www-form-urlencoded',
+        'X-RapidAPI-Key' => $apiKey,
+        'X-RapidAPI-Host' => $host,
+    ];
+
+    $data = [
+        'source_language' => 'auto',
+        'target_language' => 'en',
+        'text' => $text,
+    ];
+
+    try {
+        $response = $this->httpClient->request('POST', $url, [
+            'headers' => $headers,
+            'body' => $data,
+        ]);
+
+        $content = $response->toArray();
+        return $content['translatedText'] ?? 'Erreur de traduction';
+    } catch (\Exception $e) {
+        return 'Erreur de traduction';
+    }
+}
+}

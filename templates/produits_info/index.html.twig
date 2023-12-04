@@ -1,0 +1,321 @@
+{% extends 'base.html.twig' %}
+{% block navbar %}
+  <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+    <div class="container">
+      <a class="navbar-brand" href="{{ asset('index.html') }}">CommuniHelp</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="oi oi-menu"></span> Menu
+      </button>
+
+      <div class="collapse navbar-collapse" id="ftco-nav">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active"><a href="{{ asset('') }}" class="nav-link">Acceuil</a></li>
+<li class="nav-item"><a href="{{ path('app_article_index') }}" class="nav-link">Appel aux dons</a></li>    
+      <li class="nav-item"><a href="{{ asset('/find') }}" class="nav-link">Événements</a></li>
+
+<li class="nav-item"><a href="{{ path('app_produits_info_index') }}" class="nav-link">Boutique</a></li>    
+          <li class="nav-item"><a href="{{ path('list_publications') }}" class="nav-link">Blog santé</a></li>
+            <li class="nav-item"><a href="{{ path('app_logout') }}"class="nav-link">Déconnexion</a></li>
+
+        </ul>
+      </div>
+    </div>
+  </nav>
+        {% endblock %}
+{% block orangeblkocs %}
+    <div class="hero-wrap" style="background-image: url('{{ asset('images/bg_7.jpg') }}');" data-stellar-background-ratio="0.5">      
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row no-gutters slider-text align-items-center justify-content-center" data-scrollax-parent="true">
+                <div class="col-md-7 ftco-animate text-center" data-scrollax=" properties: { translateY: '70%' }">
+                    <h1 class="mb-4" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Ne rien faire n'est pas une option de notre vie</h1>
+                    <p data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">
+                        <a href="https://vimeo.com/45830194" class="btn btn-white btn-outline-white px-4 py-3 popup-vimeo">
+                            <span class="icon-play mr-2"></span>Voir la vidéo
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+{% endblock %}
+{% block blog %}
+    <style>
+       /* Add your custom styles here */
+#product-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.article {
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+    margin-bottom: 20px;
+}
+
+.custom-block {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid #dee2e6;
+    border-radius: 10px;
+}
+
+.custom-block img {
+    width: 100%;
+    height: auto;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.custom-block .content {
+    padding: 15px;
+}
+
+.article-buttons {
+      display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.badge {
+    font-size: 1rem;
+    font-weight: bold;
+    padding: 8px 15px;
+    border-radius: 20px;
+}
+
+/* Override button styles */
+.article-buttons .btn {
+    padding: 8px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* Use your custom button colors */
+.article-buttons .btn-primary {
+    background-color: #3498db; /* Calmer blue color */
+    color: white;
+    border: none;
+}
+
+.article-buttons .btn-warning {
+    background-color: #A8D1D1; /* Nuder orange color */
+    color: white;
+    border: none;
+}
+
+.article-buttons .btn-danger {
+    background-color: #ED0800; /* Coral red color */
+    color: white;
+    border: none;
+}
+.article-buttons .btn-primary:hover {
+  background-color: #3498db; /* Calmer blue color */
+    color: #3498db;
+    border: none;
+}
+ 
+     .custom-block {
+        height: 400px; /* Set the desired height */
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .article-buttons {
+        margin-top: auto; /* Push the buttons to the bottom */
+    }
+
+    .article-buttons a,
+    .article-buttons button {
+        margin-right: 5px; /* Adjust the spacing between buttons */
+    }
+
+
+<style>
+    .btn-group {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .badge {
+        margin-right: 10px; /* Adjust margin for spacing */
+    }
+
+    .btn-group a.btn,
+    .btn-group button {
+        padding: 10px;
+        border: none;
+        cursor: pointer;
+        border-radius: 4px;
+    }
+
+    .btn-group a.btn-primary {
+        background-color: #007BFF;
+        color: white;
+    }
+
+    .btn-group a.btn-warning {
+        background-color: #FFC107;
+        color: white;
+    }
+
+    .btn-group button.btn-danger {
+        background-color: #DC3545;
+        color: white;
+    }
+
+    .btn-group a.btn-primary:hover,
+    .btn-group a.btn-warning:hover,
+    .btn-group button.btn-danger:hover {
+        opacity: 0.8; /* Adjust opacity on hover */
+    }
+</style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </style>
+    <style>
+    .btn-custom {
+        padding: 15px 30px; /* Adjust padding for width */
+        border-radius: 5px;
+        margin-right: 10px;
+        text-decoration: none;
+        color: white; /* Text color */
+        background-color: black; /* Background color */
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .btn-custom:hover {
+        background-color: white; /* Change background color on hover */
+        color: black; /* Change text color on hover */
+    }
+</style>
+<section class="ftco-section">
+    <div class="container">
+        <div class="row justify-content-center mb-5 pb-3">
+            <div class="col-md-7 heading-section ftco-animate text-center">
+                <a href="{{ path('app_produits_info_new') }}" class="btn btn-black btn-custom mb-3">Ajouter un produit</a>
+                <a href="{{ path('app_listec_index') }}" class="btn btn-black btn-custom mb-3">Voir la liste des commandes</a>
+            </div>
+        </div>
+    </div>
+</section>
+           <div class="row" id="product-container">
+    {% for produit in produits_infos %}
+        <div class="article col-lg-3 col-md-6 col-12 mb-4 mb-lg-0">
+            <div class="custom-block bg-white shadow-lg">
+                <img src="{{ asset('images/' ~ produit.image) }}" alt="{{ produit.nomProd }}">
+                <div class="content">
+                    <p class="mb-2">{{ produit.nomProd }}</p>
+                    <p class="mb-0">{{ produit.descProd }}</p>
+                    <div class="article-buttons">
+                        <div class="d-flex align-items-center">
+                            <span class="badge rounded-pill bg-success">{{ produit.prixProd }} €</span>
+                            <a href="{{ path('app_produits_info_show', {'id': produit.id}) }}" class="btn btn-primary"><i class="fas fa-eye"></i></a>
+                            <a href="{{ path('app_produits_info_edit', {'id': produit.id}) }}" class="btn btn-warning"><i class="fas fa-edit"></i></a>
+                            <form method="post" action="{{ path('app_produits_info_delete', {'id': produit.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce produit ?')">
+                                <input type="hidden" name="_method" value="DELETE" />
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ produit.id) }}" />
+                                <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
+                            </form>
+</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var products = document.getElementById("product-container").getElementsByClassName("article");
+            var delay = 400; // Délai en millisecondes (0.4 seconde)
+
+            for (var i = 0; i < products.length; i++) {
+                setTimeout(function (index) {
+                    products[index].style.opacity = 1;
+                }, i * delay, i);
+            }
+        });
+    </script>
+{% endblock %}
+
+
+
+
+
+
+{% block whiteblocs %}{% endblock %}
+
+{% block causes %}{% endblock %}
+{% block donations %}{% endblock %}
+
+{% block pictures %}{% endblock %}
+
+{% block events %}{% endblock %}
+
+{% block volunteer %}{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        function showNotification(message, icon, title) {
+            if (Notification.permission === "granted") {
+                var notification = new Notification(title, {
+                    icon: icon,
+                    body: message,
+                });
+            } else if (Notification.permission !== "denied") {
+                Notification.requestPermission().then(function (permission) {
+                    if (permission === "granted") {
+                        var notification = new Notification(title, {
+                            icon: icon,
+                            body: message,
+                        });
+                    }
+                });
+            }
+        }
+
+        {% for flashMessage in app.session.flashbag.get('success') %}
+            showNotification("{{ flashMessage.message }}", "path/to/icon.png", "{{ flashMessage.title }}");
+        {% endfor %}
+
+        {% for flashMessage in app.session.flashbag.get('delete') %}
+            showNotification("{{ flashMessage.message }}", "path/to/icon.png", "{{ flashMessage.title }}");
+        {% endfor %}
+    </script>
+
+
+
+
+
+
+
+
+
+{% endblock %}

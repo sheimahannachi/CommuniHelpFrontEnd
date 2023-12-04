@@ -4,3 +4,28 @@
 generate_pdf:
     path: '/generate-pdf'
     controller: 'App\Controller\ParticipantsController::generatePdf'
+
+check_role:
+    path: /check-role
+    controller: App\Controller\LoginController::checkRole
+
+add_comm:
+    path: /commentaire/add/{id}
+    controller: App\Controller\CommentaireController::addComm
+    methods: [POST]
+
+
+api_comments:
+    path: /api/comments/{id}
+    controller: App\Controller\CommentaireController::getComments
+
+
+
+app_publications_like_toggle:
+    path: '/like-toggle/{id}'
+    controller: 'App\Controller\PublicationsController::likeToggle'
+    methods: ['POST']
+    defaults:
+        _format: 'json'
+
+

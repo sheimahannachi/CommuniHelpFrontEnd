@@ -1,0 +1,57 @@
+{% extends 'baseadmin.html.twig' %}
+
+
+{% block contenu %}
+{% endblock %}
+ {% block charts %}
+ {% endblock %}
+
+{% block dashboard %}
+
+<div class="row d-flex">
+    {% for pub in publications %}
+        <div class="col-xl-4 col-lg-4 mb-4">
+            <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Publication</h6>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                    <img src="{{ asset('images_pub/' ~ pub.imagePath) }}" style="background-size: cover; background-position: center; height: 220px; width: 100%;" />
+                    <div class="text p-4 d-block" style="max-height: 200px; overflow: hidden;">
+                        <div class="meta mb-3">
+                            <div><a href="#"><p class="time-loc"><span class="mr-2"><i class="icon-clock-o"></i>{{ pub.dateDePublication | date }}</span></a></p></div>
+                            <div><a href="#">{{ pub.tags }}</a></div>
+                        </div>
+                        <h3 class="heading mt-3 text-truncate"><a href="{{ path('list_publications', {'id': pub.id}) }}">{{ pub.texte }}</a></h3>
+
+                        <div class="edit-delete-images">
+                            <a href="{{ path('pub_updateAdmin', {'id': pub.id}) }}" class="edit-image" style="background-image: url('{{ asset('images_pub/edit.png') }}');"></a>
+                            <a href="{{ path('pub_deleteAdmin', {'id': pub.id}) }}" class="delete-image" style="background-image: url('{{ asset('images_pub/delete.png') }}');"></a>
+                            <a href="{{ path('show_pub_admin', {'id': pub.id}) }}" class="image" style="background-image: url('{{ asset('images_pub/details.png') }}'); background-size: cover; background-position: center; height: 30px; width: 17%;"></a>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+<style>
+    .edit-delete-images {
+        display: flex;
+        gap: 10px; /* Espace entre les images */
+        justify-content: flex-end;
+    }
+
+    .edit-image,
+    .delete-image {
+        background-size: cover;
+        background-position: center;
+        height: 30px; /* Hauteur souhaitée */
+        width: 30px; /* Largeur souhaitée */
+        display: inline-block;
+    }
+</style>
+{% endblock %}

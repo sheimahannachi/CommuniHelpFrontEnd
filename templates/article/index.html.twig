@@ -1,0 +1,133 @@
+{% extends 'base.html.twig' %} 
+{% block navbar %}
+  <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+    <div class="container">
+      <a class="navbar-brand" href="{{ asset('index.html') }}">CommuniHelp</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="oi oi-menu"></span> Menu
+      </button>
+
+      <div class="collapse navbar-collapse" id="ftco-nav">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active"><a href="{{ asset('') }}" class="nav-link">Acceuil</a></li>
+<li class="nav-item"><a href="{{ path('app_article_index') }}" class="nav-link">Appel aux dons</a></li>    
+      <li class="nav-item"><a href="{{ asset('/find') }}" class="nav-link">Événements</a></li>
+
+<li class="nav-item"><a href="{{ path('app_produits_info_index') }}" class="nav-link">Boutique</a></li>    
+          <li class="nav-item"><a href="{{ path('list_publications') }}" class="nav-link">Blog santé</a></li>
+            <li class="nav-item"><a href="{{ path('app_logout') }}"class="nav-link">Déconnexion</a></li>
+
+        </ul>
+      </div>
+    </div>
+  </nav>
+        {% endblock %}
+{% block orangeblkocs %}
+<div class="hero-wrap" style="background-image: url('{{ asset('images/bg_7.jpg') }}');" data-stellar-background-ratio="0.5">      
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row no-gutters slider-text align-items-center justify-content-center" data-scrollax-parent="true">
+            <div class="col-md-7 ftco-animate text-center" data-scrollax=" properties: { translateY: '70%' }">
+                <h1 class="mb-4" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Chaque acte compte, chaque cœur fait la différence !</h1>
+                <p data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><a href="https://vimeo.com/45830194" class="btn btn-primary btn-outline-white px-4 py-3 popup-vimeo"><span class="icon-play mr-2"></span>Voir la vidéo</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block whiteblocs %}{% endblock %}
+
+{% block causes %}
+<div class="text-center mb-4">
+    <div class="container">
+        <h1 class="mb-4">Appels aux dons</h1>
+        <a href="{{ path('app_article_new') }}" class="btn btn-dark btn-lg btn-outline-dark mb-4">Ajouter un appel aux dons</a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12 ftco-animate">
+        <div class="carousel-cause owl-carousel">
+            {% for article in articles %}
+                <div class="item">
+                    <div class="cause-entry">
+                        <a href="#" class="img" style="background-image: url('{{ asset('images/' ~ article.image) }}');"></a>
+                        <div class="text p-3 p-md-4">
+                            <p>{{ article.description }}</p>
+                            <span class="donation-time mb-3 d-block">Appel aux dons se termine en {{ article.creationDate.diff(date('now')).format('%a') }} jours</span>  
+
+                            <div class="progress custom-progress-success">
+                                {% set totalDays = 100 %}
+                                {% set daysRemaining = article.creationDate.diff(date('now')).days %}
+
+                                {% if totalDays > 0 %}
+                                    {% set percentage = ((totalDays - daysRemaining) / totalDays) * 100 %}
+<div class="progress-bar bg-warning" role="progressbar" style="width: {{ percentage }}%" aria-valuenow="{{ percentage }}" aria-valuemin="0" aria-valuemax="100"></div>                                {% endif %}
+                            </div>
+<style>
+    .article-buttons a.btn-primary {
+        background-color: #3498db; /* Soft blue */
+        border-color: #3498db;
+        color: #ffffff; /* White text */
+    }
+
+    .article-buttons a.btn-secondary {
+        background-color: #bdc3c7; /* Soft grey */
+        border-color: #bdc3c7;
+        color: #ffffff; /* White text */
+    }
+
+    .article-buttons button.btn-danger{
+        background-color: #e74c3c; /* Soft red */
+        border-color: #e74c3c;
+        color: #ffffff; /* White text */
+    }
+
+   
+</style>
+<div class="article-buttons mt-2 d-flex justify-content-center">
+    <a href="{{ path('app_article_show', {'id': article.id}) }}" class="btn btn-primary me-2">
+        <i class="fas fa-info-circle"></i> <!-- Details Icon -->
+    </a>
+    <a href="{{ path('app_article_edit', {'id': article.id}) }}" class="btn btn-secondary me-2">
+        <i class="fas fa-edit"></i> <!-- Edit Icon -->
+    </a>
+    <form method="post" action="{{ path('app_article_delete', {'id': article.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet article ?')">
+        <input type="hidden" name="_method" value="DELETE" />
+        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ article.id) }}" />
+        <button type="submit" class="btn btn-danger">
+            <i class="fas fa-trash"></i> <!-- Delete Icon -->
+        </button>
+    </form>
+</div>
+
+
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<script src="{{ asset('node_modules/owl.carousel/dist/owl.carousel.min.js') }}"></script>
+<script>
+    // Initialize Owl Carousel after the loop
+    $(document).ready(function() {
+        $('.carousel-cause').owlCarousel({
+            // Owl Carousel options
+            items: 1,
+            loop: true,
+            // ... other options
+        });
+    });
+</script>
+{% endblock %}
+
+{% block donations %}{% endblock %}
+{% block pictures %}{% endblock %}
+{% block blog %}{% endblock %}
+{% block events %}{% endblock %}
+{% block volunteer %}{% endblock %}

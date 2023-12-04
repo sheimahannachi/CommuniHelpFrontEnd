@@ -1,0 +1,195 @@
+{% extends 'baseadmin.html.twig' %}
+{% block sidebar %}
+
+        <!-- Sidebar -->
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+<div class="sidebar-brand-icon">
+    <img src="{{ asset('images/logor.png') }}" alt="Your Logo" style="width: 50px; height: auto;">
+</div>
+
+                <div class="sidebar-brand-text mx-3"> CommuniHelp</div>
+            </a>
+
+
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
+
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item active">
+                <a class="nav-link" href="index.html">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Dashboard</span></a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            
+
+            <!-- Nav Item - Pages Collapse Menu -->
+               <li class="nav-item">
+    <a class="nav-link collapsed" href="{{ path('app_findadmin') }}">
+        <span>Évènements</span>
+    </a>
+</li>
+              
+           <li class="nav-item">
+    <a class="nav-link collapsed" href="{{ path('app_admin_article') }}">
+        <span>Appels aux dons</span>
+    </a>
+</li>
+    
+           <li class="nav-item">
+    <a class="nav-link collapsed" href="{{ path('app_admin_produit') }}">
+        <span>Boutique</span>
+    </a>
+</li>
+                  <li class="nav-item">
+                <a class="nav-link collapsed" href="#" >
+                    
+                    <span>Blog santé</span>
+                </a>
+              
+            </li>
+            
+                <li class="nav-item">
+    <a class="nav-link collapsed" href="{{ path('app_stathazem') }}">
+        <span>Statistiques</span>
+    </a>
+</li>
+
+            <!-- Nav Item - Utilities Collapse Menu -->
+           
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+           
+
+        </ul>
+        <!-- End of Sidebar -->
+
+
+  {% endblock %}
+{% block dashboard %}
+    <style>
+        /* Ajoutez des styles pour le tableau */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .article {
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+    </style>
+
+    <section class="ftco-section">
+        <div class="container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Description</th>
+                        <th>Prix</th>
+                        <th>Image</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+             
+<tbody id="product-container">
+    {% for produit in produits_infos %}
+        <tr class="article">
+            <td>{{ produit.nomProd }}</td>
+            <td>{{ produit.descProd }}</td>
+            <td>{{ produit.prixProd }}€</td>
+            <td>
+                <img src="{{ asset('images/' ~ produit.image) }}" class="img-fluid" alt="" style="max-width: 100px; max-height: 100px;">
+            </td>
+            <td>
+                
+
+
+     <style>
+    .btn-custom {
+        padding: 10px 20px;
+        border-radius: 5px;
+        margin-right: 10px;
+        text-decoration: none;
+        display: inline-flex; /* Display buttons in a row */
+        align-items: center; /* Align items vertically in the center */
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-custom:hover {
+        background-color: #218838;
+    }
+
+    .btn-custom i {
+        margin-right: 10px; /* Add some space between icon and text */
+    }
+</style>
+              <a href="{{ path('adminedit', {'id': produit.id}) }}" class="btn btn-warning btn-custom me-2">
+            <i class="fas fa-edit"></i> 
+        </a>
+        <form method="post" action="{{ path('deletehazem', {'id': produit.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce produit ?')">
+            <input type="hidden" name="_method" value="DELETEHAZEM" />
+            <input type="hidden" name="_token" value="{{ csrf_token('deletehazem' ~ produit.id) }}" />
+            <button type="submit" class="btn btn-danger btn-custom">
+                <i class="fas fa-trash-alt"></i> 
+            </button>
+        </form>
+            </td>
+        </tr>
+    {% endfor %}
+</tbody>
+            </table>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var products = document.getElementById("product-container").getElementsByClassName("article");
+            var delay = 400; // Délai en millisecondes (0.1 seconde)
+
+            for (var i = 0; i < products.length; i++) {
+                setTimeout(function (index) {
+                    products[index].style.opacity = 1;
+                }, i * delay, i);
+            }
+        });
+    </script>
+{% endblock %}
+ 
+
+  {% block charts %}   {% endblock %}
+  {% block contenu %}  {% endblock %}
+{% block footer %}
+            <!-- Footer -->
+    <footer class="bg-white" style="position: fixed; bottom: 0; width: 100%;">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; Your Website 2023</span>
+                    </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
+  {% endblock %}
+
+  

@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block orangeblkocs %}
+{% endblock %}
+{% block whiteblocs %}
+{% endblock %}
+{% block causes %}
+{% endblock %}
+{% block donations %}
+{% endblock %}
+{% block pictures %}
+{% endblock %}
+{% block blog %}
+{% endblock %}
+{% block events %}
+{% endblock %}
+{% block navbar %}
+{% endblock %}
+{% block volunteer %}
+
+    <section class="ftco-section-3 img" style="background-image: url('{{ asset('images/bg_3.jpg') }}');">    	<div class="overlay"></div>
+        <div class="container">
+            <div class="row d-md-flex">
+                <div class="col-md-6 d-flex ftco-animate">
+
+                <div align="center">
+                <h2> add Post </h2>
+    
+                {{form(form)}}
+                                        <div style="margin-top: 20px;"> <!-- Add some margin-top for spacing -->
+
+                        <a href="{{ path('app_logout') }}" class="btn btn-primary">Retour</a>
+    
+                </div>
+                   
+                </div>
+                <div class="col-md-6 volunteer pl-md-5 ftco-animate">
+                    </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+
+
+
+ {% endblock %}

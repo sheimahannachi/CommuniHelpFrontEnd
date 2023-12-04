@@ -1,0 +1,172 @@
+<style>
+    #dump {
+        padding: 1px 1px 1px;
+        display: none;
+        margin: auto;
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 1%;
+        background: white;
+        max-height: 80vh;
+        overflow: auto;
+        border-top: solid 1px #ddd;
+        box-shadow: 0 0 30px #999;
+        box-sizing: border-box;
+    }
+    #dump .dump-header {
+        background-color: #eee;
+        margin-bottom: 0;
+        padding: 0;
+        font-family: monospace;
+        font-size: 1px;
+    }
+    #dump .dump-key {
+        display: inline-block;
+        padding: 1px;
+    }
+    #dump a {
+        display: inline-block;
+        padding: 1px 1px;
+        background: #1db135;
+        color: white;
+        text-decoration: none;
+        opacity: 0.8;
+    }
+    #dump a:hover {
+        opacity: 1;
+    }
+    #dump a.active {
+        background: #ff4836;
+    }
+    #dump h1 {
+        color: #555;
+        font-weight: normal;
+        font-size: 1px;
+        font-family: monospace;
+    }
+    #dump-content {
+        padding: 0;
+        margin: 0 auto;
+        max-width: 1px;
+    }
+    .dump-header {
+        margin-top: 10px;
+    }
+    .dump-value {
+        border: solid 1px #eee;
+        padding: 0 1px;
+    }
+    a#dump-trigger {
+        display: block;
+        width: 50px;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        text-align: center;
+        opacity: 1;
+        background: #ff6516;
+        color: white;
+        text-decoration: none;
+        padding: 5px;
+        margin: 2px;
+        border-radius: 3px;
+        z-index: 10001;
+        font-size: 14px;
+        font-family: monospace;
+    }
+    a#dump-trigger:hover {
+        background: #ff7808;
+    }
+</style>
+
+<a href="#" id="dump-trigger">dump</a>
+<div id="dump">
+    <div id="dump-content">
+        <h1>Variables passed to the view:</h1>
+        {% for key, value in _context %}
+            {% if key starts with '_' %}
+            {% else %}
+                <div class="dump-header">
+                    <a href="#" data-name="{{ key }}">+</a>
+                    <div class="dump-key">{{ key }}</div>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>
+
+<script>
+    document.getElementById('dump').addEventListener('click', function(e) {
+        var valueDiv = document.getElementById('dump-' + e.target.dataset.name);
+
+        e.preventDefault();
+
+        if (e.target.localName === 'a') {
+
+            if (valueDiv.style.display === 'block') {
+                valueDiv.style.display = 'none';
+                e.target.innerHTML = '+';
+                e.target.classList.remove('active');
+            } else {
+                valueDiv.style.display = 'block';
+                e.target.innerHTML = '-';
+                e.target.classList.add('active');
+            }
+        }
+    });
+    document.getElementById('dump-trigger').addEventListener('click', function(e) {
+        var dumpBox = document.getElementById('dump');
+        e.preventDefault();
+        dumpBox.style.display = dumpBox.style.display === 'block' ? 'none' : 'block';
+    });
+</script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title> </title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" />
+    {% include 'donationforms/share-css.twig' %}
+</head>
+<body>
+    <div class="share-btn-container">
+        <a href="#" class="facebook-btn">
+            <i class="fab fa-facebook"></i>
+        </a>
+
+        <a href="#" class="twitter-btn" id="twitterButton">
+            <i class="fab fa-twitter"></i>
+        </a>
+
+        <a href="#" class="pinterest-btn">
+            <i class="fab fa-pinterest"></i>
+        </a>
+
+        <a href="#" class="linkedin-btn">
+            <i class="fab fa-linkedin"></i>
+        </a>
+
+        <a href="#" class="whatsapp-btn">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+    </div>
+
+    <div class="content">
+        <h1> </h1>
+        <p>
+        </p>
+
+        <img
+         class="pinterest-img"
+            src="https://static.vecteezy.com/system/resources/previews/004/327/957/original/donation-box-throwing-coin-in-a-box-for-donations-donate-giving-money-and-love-concept-of-charity-give-and-share-your-love-with-people-vector.jpg"
+            alt=""
+                style="width: 1px; height: 1px;"
+        />
+    </div>
+
+    {% include 'donationforms/share-js.twig' %}
+</body>
+</html>

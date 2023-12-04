@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit LivraisonP{% endblock %}
+
+{% block body %}
+    <h1>changer</h1>
+
+    {{ include('livraison_p/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_livraison_p_index') }}">back to list</a>
+
+    {{ include('livraison_p/_delete_form.html.twig') }}
+{% endblock %}

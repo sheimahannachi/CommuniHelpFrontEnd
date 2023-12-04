@@ -1,0 +1,46 @@
+{% extends 'baseadmin.html.twig' %}
+{% block contenu %}
+{% endblock %}
+ {% block charts %}
+ {% endblock %}
+ 
+
+{% block dashboard %}
+    <div class="container mt-5">
+        <h1 class="text-center">Publication Details</h1>
+        
+        {% if publications %}
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <dl>
+                        <dt>Texte:</dt>
+                        <dd>{{ publications.texte }}</dd>
+
+                        <dt>Publication date:</dt>
+                        <dd>{{ publications.dateDePublication|date }}</dd>
+
+                        <dt>Tags:</dt>
+                        <dd>{{ publications.tags }}</dd>
+
+                        <dt>Image:</dt>
+                        <dd><img src="{{ asset('images_pub/' ~ publications.imagePath) }}" alt="Publication Image" class="img-fluid" width="250" height="250"></dd>
+
+                        <dt>Specialité Associée:</dt>
+                        <dd>{{ publications.specialiteAssocie }}</dd>
+                    </dl>
+
+                    <h2 class="text-center mt-4">Commentaires:</h2>
+                    <ul>
+                        {% for commentaire in publications.commentaires %}
+                            <li>{{ commentaire.contenuCommentaire }}</li>
+                        {% endfor %}
+                    </ul>
+
+                    <div class="text-center">
+                        <a href="{{ path('list_publicationsAdmin') }}" class="btn btn-primary">Back to List</a>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

@@ -1,0 +1,83 @@
+
+
+{% extends 'base.html.twig' %}
+
+{% block notifications %}
+    <div id="push-notification" style="position: fixed; top: 10px; right: 10px; z-index: 1000;"></div>
+{% endblock %}
+{% block orangeblkocs %}
+    <div class="hero-wrap" style="background-image: url('{{ asset('images/bg_7.jpg') }}');" data-stellar-background-ratio="0.5">      
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row no-gutters slider-text align-items-center justify-content-center" data-scrollax-parent="true">
+                <div class="col-md-7 ftco-animate text-center" data-scrollax=" properties: { translateY: '70%' }">
+                    <h1 class="mb-4" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Ne rien faire n'est pas une option de notre vie</h1>
+                    <p data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">
+                        <a href="https://vimeo.com/45830194" class="btn btn-white btn-outline-white px-4 py-3 popup-vimeo">
+                            <span class="icon-play mr-2"></span>Voir la vidéo
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+   {% endblock %}
+
+
+
+{% block blog %}
+
+  <h1>Résultats de la recherche</h1>
+
+  <p>Search term: {{ productName }}</p>
+
+  {% if products is not empty %}
+    <div class="row" id="produits-container">
+        {% for product in products %}
+            <div class="col-md-3 col-sm-6 d-flex ftco-animate">
+                <div class="blog-entry align-self-stretch custom-block bg-white shadow-lg" style="opacity: 1; border-radius: 10px; overflow: hidden; position: relative;">
+                    <a href="#" class="block-20 product-image" style="background-image: url('{{ asset('images/' ~ product.getImage()) }}');"></a>
+                    <div class="text p-4 d-block">
+                        <h3 class="heading mt-3"><a href="#">{{ product.getNomProd() }}</a></h3>
+                        <p>{{ product.getDescProd() }}</p>
+                        <div style="position: absolute; top: 10px; right: 10px;">
+                            <div class="price" style="font-size: 20px; color: #e07c5e; font-weight: bold;">
+                                &euro;{{ product.getPrixProd() }}
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-end" style="height: 100%;">
+                            <div class="article-buttons">
+                                <a href="{{ path('app_confirm_achat', {'produit_id': product.getId()}) }}" class="btn btn-success" style="border-radius: 25px;">
+                                    <i class="fas fa-heart" style="margin-right: 5px;"></i> Acheter
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% if loop.index % 4 == 0 and not loop.last %}</div><div class="row">{% endif %}
+        {% endfor %}
+    </div>
+  {% else %}
+    <p>Aucun produit trouvé pour la recherche "{{ productName }}".</p>
+  {% endif %}
+
+
+
+
+{% endblock %}
+
+
+
+{% block whiteblocs %}{% endblock %}
+
+{% block causes %}{% endblock %}
+{% block donations %}{% endblock %}
+
+{% block pictures %}{% endblock %}
+
+{% block events %}{% endblock %}
+
+{% block volunteer %}{% endblock %}
+

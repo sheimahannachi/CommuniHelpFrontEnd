@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Listec{% endblock %}
+
+{% block body %}
+    <h1>Listec</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ listec.id }}</td>
+            </tr>
+            <tr>
+                <th>Nomproduit</th>
+                <td>{{ listec.nomproduit }}</td>
+            </tr>
+            <tr>
+                <th>Contact</th>
+                <td>{{ listec.contact }}</td>
+            </tr>
+            <tr>
+                <th>Nomdest</th>
+                <td>{{ listec.nomdest }}</td>
+            </tr>
+            <tr>
+                <th>Emailc_</th>
+                <td>{{ listec.emailc }}</td>
+            </tr>
+            <tr>
+                <th>Adressec_</th>
+                <td>{{ listec.adressec }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_listec_index') }}">back to list</a>
+
+    <a href="{{ path('app_listec_edit', {'id': listec.id}) }}">edit</a>
+
+    {{ include('listec/_delete_form.html.twig') }}
+{% endblock %}

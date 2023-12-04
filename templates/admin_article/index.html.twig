@@ -1,0 +1,577 @@
+{% extends 'baseadmin.html.twig' %}
+
+{% block contenu %}
+   <div class="container">
+      <div class="row">
+         <div class="col-md-8">
+            <h2 class="mb-4">Appels aux dons</h2>
+<table id="donsTable" class="table table-bordered">
+               <thead>
+                  <tr>
+                     <th scope="col">Ville</th>
+
+                     <th scope="col">Description</th>
+                     <th scope="col">Jours restants</th>
+                     <th scope="col">Progression</th>
+                     <th scope="col">Actions</th>
+                  </tr>
+               </thead>
+<div>
+<style>
+  /* Style for labels */
+  label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+
+  /* Style for select boxes */
+  select {
+    width: 100%;
+    padding: 8px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 14px;
+  }
+
+  /* Style for the default option in select boxes */
+  select option:first-child {
+    color: #888;
+  }
+</style>
+ <label for="ville">Ville:</label>
+    <select id="ville" name="ville">
+        <option value="">Sélectionner une ville</option>
+        {% for city in cities %}
+            <option value="{{ city }}">{{ city }}</option>
+        {% endfor %}
+    </select>
+    
+    <label for="joursRestants">Jours restants:</label>
+    <select id="joursRestants" name="joursRestants">
+        <option value="0-10">0-10 jours</option>
+        <option value="10-20">10-20 jours</option>
+        <option value="20-50">20-50 jours</option>
+         <option value="50-150">50-150 jours</option>
+        <option value="150-300">150-300 jours</option>
+        <option value="300-400">300-400 jours</option>
+        <option value="400-600">400-600 jours</option>
+
+    </select>
+<style>/* Example CSS styling for the button */
+#searchBtn {
+  padding: 8px 15px; /* Adjust the padding to control the button size */
+  background-color: #007BFF; /* Set the background color to a dark blue shade */
+  color: white; /* Set the text color */
+  border: none; /* Remove the button border */
+  border-radius: 5px; /* Add rounded corners */
+  cursor: pointer; /* Change the cursor on hover */
+  display: block; /* Ensure the button takes full width */
+  margin: 0 auto; /* Center the button */
+    margin-bottom: 10px; /* Add margin to the bottom */
+}
+
+/* Hover effect */
+#searchBtn:hover {
+  background-color: #0056b3; /* Darken the background color on hover */
+}
+
+</style>
+
+<button id="searchBtn" class="search-button">Rechercher</button>
+
+ </div>   
+               <tbody>
+                  {% for article in articles %}
+                     <tr>
+                      <td>
+                         <div class="d-flex align-items-center">
+                              <p>{{ article.ville }}</p>
+                           </div>
+                        </td>
+                        <td>
+                         <div class="d-flex align-items-center">
+                              <img src="{{ asset('images/' ~ article.image) }}" alt="Article Image" class="img-fluid me-2" style="width: 140px; height: 100px;">
+                              <p>{{ article.description }}</p>
+                           </div>
+                        </td>
+                        <td>{{ article.creationDate.diff(date('now')).format('%a') }} jours</td>
+                        <td>
+                           <div class="progress custom-progress-success" style="height: 10px;">
+                              {% set totalDays = 100 %}
+                              {% set daysRemaining = article.creationDate.diff(date('now')).days %}
+                              {% if totalDays > 0 %}
+                                 {% set percentage = ((totalDays - daysRemaining) / totalDays) * 100 %}
+                                 <div class="progress-bar bg-primary" role="progressbar" style="width: {{ percentage }}%" aria-valuenow="{{ percentage }}" aria-valuemin="0" aria-valuemax="100"></div>
+                              {% endif %}
+                           </div>
+                        </td>
+                        <td>
+                           <div class="btn-group" role="group">
+                              <a href="{{ path('display_article', {'id': article.id}) }}" class="btn btn-primary btn-sm me-2"><i class="fas fa-info-circle"></i></a>
+                              <form method="post" action="{{ path('deleteouma', {'id': article.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet article ?')">
+                                 <input type="hidden" name="_method" value="DELETE" />
+                                 <input type="hidden" name="_token" value="{{ csrf_token('deleteouma' ~ article.id) }}" />
+                                 <button type="submit" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
+                              </form>
+                           </div>
+                        </td>
+                     </tr>
+                  {% endfor %}
+               </tbody>
+            </table>
+            
+            <div class="pagination">
+                {{ knp_pagination_render(articles) }}
+            </div>
+         </div>
+
+
+
+
+
+
+
+
+
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        // Your JavaScript code here
+     $(document).ready(function() {
+    // Lorsque la page est prête
+
+    // Cacher la deuxième liste déroulante au départ
+    $('#joursRestants').hide();
+
+    // Lorsque la première liste déroulante change
+    $('#ville').change(function() {
+        // Récupérer la valeur sélectionnée
+        var selectedCity = $(this).val();
+
+        // Si une ville est sélectionnée
+        if (selectedCity) {
+            // Faire une requête Ajax pour obtenir les options pour les jours restants
+            $.ajax({
+                type: 'POST',
+                url: '/admin/calculate-jours-options',
+                data: { 'ville': selectedCity },
+                success: function(response) {
+                    // Mettre à jour la deuxième liste déroulante avec les options calculées
+                    updateJoursRestantsDropdown(response.joursOptions);
+                },
+                error: function(error) {
+                    console.error('Erreur lors de la récupération des options de jours restants', error);
+                }
+            });
+
+            // Afficher la deuxième liste déroulante
+            $('#joursRestants').show();
+        } else {
+            // Si aucune ville n'est sélectionnée, cacher la deuxième liste déroulante
+            $('#joursRestants').hide();
+        }
+    });
+
+
+$('#searchBtn').click(function() {
+    // Récupérer les valeurs sélectionnées
+    var selectedCity = $('#ville').val();
+    var selectedJoursRestants = $('#joursRestants').val();
+
+    // Faire une requête Ajax pour récupérer les appels au don correspondants
+    $.ajax({
+        type: 'POST',
+        url: '/admin/search-dons',
+        data: { 'ville': selectedCity, 'joursRestants': selectedJoursRestants },
+        success: function(response) {
+            // Mettre à jour le tableau ou la section où vous affichez les résultats
+            console.log(response);
+            console.log('my Dons array:', response.dons);
+            console.log('Processing this article 1:', response.dons[0]);
+            updateDonResults(response.dons);
+        },
+        error: function(error) {
+            console.error('Erreur lors de la recherche des appels au don', error);
+        }
+    });
+});
+    //////////////// Fonction pour mettre à jour la deuxième liste déroulante des jours restants
+    function updateJoursRestantsDropdown(joursOptions) {
+        // Vider la liste déroulante actuelle
+        $('#joursRestants').empty();
+
+        // Ajouter les nouvelles options
+        joursOptions.forEach(function(option) {
+            $('#joursRestants').append('<option value="' + option + '">' + option + '</option>');
+        });
+    }
+
+    //houni
+    }
+);
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+         <div class="col-md-4">
+            <h2 class="text-center mb-4">Liste des Top Donateurs</h2>
+            <table class="table">
+               <thead>
+                  <tr>
+                     <th scope="col">Donateur</th>
+                     <th scope="col">Total Donations</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <tr>
+                     <td>
+                        <img src="{{ asset('images/person_1.jpg') }}" alt="Donor 1 Photo" style="width: 50px; height: 50px;">
+                        Salma Hayek
+                     </td>
+                     <td>$500</td>
+                  </tr>
+                  <tr>
+                     <td>
+                        <img src="{{ asset('images/person_2.jpg') }}" alt="Donor 2 Photo" style="width: 50px; height: 50px;">
+                        Tom Farrell
+                     </td>
+                     <td>$450</td>
+                  </tr>
+                  <tr>
+                     <td>
+                        <img src="{{ asset('images/person_7.jpg') }}" alt="Donor 3 Photo" style="width: 50px; height: 50px;">
+                        Emma Hunt
+                     </td>
+                     <td>$400</td>
+                  </tr>
+                  <tr>
+                     <td>
+                        <img src="{{ asset('images/person_4.jpg') }}" alt="Donor 4 Photo" style="width: 50px; height: 50px;">
+                        Thomas Will
+                     </td>
+                     <td>$250</td>
+                  </tr>
+                  <tr>
+                     <td>
+                        <img src="{{ asset('images/person_5.jpg') }}" alt="Donor 5 Photo" style="width: 50px; height: 50px;">
+                        Amy Adams
+                     </td>
+                     <td>$210</td>
+                  </tr>
+               </tbody>
+            </table>
+         </div>
+      </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+   <script src="{{ asset('node_modules/owl.carousel/dist/owl.carousel.min.js') }}"></script>
+   <script>
+    function updateDonResults(dons) {
+    console.log('Dons array:', dons);
+
+    // Reference to the tbody of the table
+    var tbody = $('#donsTable tbody');
+
+    // Clear the existing table rows
+    tbody.empty();
+
+    // Check if dons is an array
+    if (Array.isArray(dons)) {
+        if (dons.length > 0) {
+            // Loop through the search results and add rows to the table
+            dons.forEach(function (article, index) {
+                // Check if article is an object
+                if (typeof article === 'object' && article !== null) {
+                    console.log(`Processing article ${index + 1}:`, article);
+
+                    // Create a new table row
+                    var row = $('<tr>');
+
+                    // Check if 'ville' property exists in the article object
+                    if ('ville' in article) {
+                        // Append the 'ville' property to the row
+                           row.append('<td>' + article.ville + '</td>');                    } else {
+                        // Handle the case where 'ville' is missing
+                        row.append('<td>Missing ville</td>');
+                    }
+ row.append('<td>' +
+                        '<div class="d-flex align-items-center">' +
+                    '<img src="{{ asset("images/") }}' + article.image + '" alt="Article Image" class="img-fluid me-2" style="width: 140px; height: 100px;">' +                        '<p>' + article.description + '</p>' +
+                        '</div>' +
+                        '</td>');
+                        row.append('<td>' + article.daysDifference + ' jours</td>');
+  row.append('<td>' +
+                            '<div class="progress custom-progress-success" style="height: 10px;">' +
+                            '<div class="progress-bar bg-primary" role="progressbar" style="width: ' +
+                            article.progressBar + '%" aria-valuenow="' + article.progressBar +
+                            '" aria-valuemin="0" aria-valuemax="100"></div>' +
+                            '</div>' +
+                            '</td>');
+
+
+
+
+ 
+
+
+
+row.append('<td>' +
+                        '<div class="btn-group" role="group">' +
+    '<a href="/display-article/' + article.id + '" class="btn btn-primary btn-sm me-2"><i class="fas fa-info-circle"></i></a>' +                        '<form method="post" action="' + article.deletePath + '" onsubmit="return confirm(\'Êtes-vous sûr de vouloir supprimer cet article ?\')">' +
+                        '<input type="hidden" name="_method" value="DELETE" />' +
+                        '<input type="hidden" name="_token" value="' + article.csrfToken + '" />' +
+                        '<button type="submit" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>' +
+                        '</form>' +
+                        '</div>' +
+                        '</td>');
+
+
+
+
+
+                        
+                    // Append the row to the tbody
+                    tbody.append(row);
+                }
+            });
+        }
+        
+         else {
+            console.log('Dons array is empty.');
+        }
+    } else {
+        console.log('Dons is not an array.');
+    }
+}
+      // Initialize Owl Carousel after the loop
+      $(document).ready(function() {
+         $('.carousel-cause').owlCarousel({
+            // Owl Carousel options
+            items: 1,
+            loop: true,
+            // ... other options
+         });
+      });
+   </script>
+{% endblock %}
+
+
+
+
+
+ {% block sidebar %}
+
+        <!-- Sidebar -->
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+            
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+<div class="sidebar-brand-icon">
+    <img src="{{ asset('images/logor.png') }}" alt="Your Logo" style="width: 50px; height: auto;">
+</div>
+
+                <div class="sidebar-brand-text mx-3"> CommuniHelp</div>
+            </a>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
+
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item active">
+                <a class="nav-link" href="index.html">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Dashboard</span></a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+           <!-- Heading -->
+            
+
+            <!-- Nav Item - Pages Collapse Menu -->
+               <li class="nav-item">
+    <a class="nav-link collapsed" href="{{ path('app_findadmin') }}">
+        <span>Évènements</span>
+    </a>
+</li>
+              
+           <li class="nav-item">
+    <a class="nav-link collapsed" href="{{ path('app_admin_article') }}">
+        <span>Appels aux dons</span>
+    </a>
+</li>
+    
+           <li class="nav-item">
+    <a class="nav-link collapsed" href="{{ path('app_admin_produit') }}">
+        <span>Boutique</span>
+    </a>
+</li>
+                  <li class="nav-item">
+                <a class="nav-link collapsed" href="#" >
+                    
+                    <span>Blog santé</span>
+                </a>
+              
+            </li>
+           
+       
+
+            <!-- Nav Item - Utilities Collapse Menu -->
+           
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+           
+
+        </ul>
+        <!-- End of Sidebar -->
+
+
+  {% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% block charts %}   {% endblock %}
+
+
+  {% block dashboard %}
+
+
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800">Donations</h1>
+                        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                                class="fas fa-download fa-sm text-white-50"></i> Télécharger</a>
+                    </div>
+
+                    <!-- Content Row -->
+                    <div class="row">
+
+                        <!-- Earnings (Monthly) Card Example -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-primary shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                Dons d'aujourdhui</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Earnings (Monthly) Card Example -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-success shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                Dons de cette semaine</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                          <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-success shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                Dons de ce mois</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- Pending Requests Card Example -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-warning shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                                Nombre de donateurs</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-comments fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+  {% endblock %}

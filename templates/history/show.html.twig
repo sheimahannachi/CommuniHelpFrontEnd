@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}History{% endblock %}
+
+{% block body %}
+    <h1>History</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ history.id }}</td>
+            </tr>
+            <tr>
+                <th>ArticleId</th>
+                <td>{{ history.articleId }}</td>
+            </tr>
+            <tr>
+                <th>ArticleVille</th>
+                <td>{{ history.articleVille }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ history.description }}</td>
+            </tr>
+            <tr>
+                <th>Contact</th>
+                <td>{{ history.contact }}</td>
+            </tr>
+            <tr>
+                <th>Image</th>
+                <td>{{ history.image }}</td>
+            </tr>
+            <tr>
+                <th>DonationId</th>
+                <td>{{ history.donationId }}</td>
+            </tr>
+            <tr>
+                <th>Montant</th>
+                <td>{{ history.montant }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ history.email }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ history.nom }}</td>
+            </tr>
+            <tr>
+                <th>Prenom</th>
+                <td>{{ history.prenom }}</td>
+            </tr>
+            <tr>
+                <th>DonationVille</th>
+                <td>{{ history.donationVille }}</td>
+            </tr>
+            <tr>
+                <th>CarteBancaire</th>
+                <td>{{ history.carteBancaire }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_history_index') }}">back to list</a>
+
+    <a href="{{ path('app_history_edit', {'id': history.id}) }}">edit</a>
+
+    {{ include('history/_delete_form.html.twig') }}
+{% endblock %}

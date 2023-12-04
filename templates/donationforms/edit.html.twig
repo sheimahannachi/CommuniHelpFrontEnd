@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Donationforms{% endblock %}
+
+{% block body %}
+    <h1>Edit Donationforms</h1>
+
+    {{ include('donationforms/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_donationforms_index') }}">back to list</a>
+
+    {{ include('donationforms/_delete_form.html.twig') }}
+{% endblock %}

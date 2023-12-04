@@ -1,0 +1,122 @@
+{% extends 'baseadmin.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/progressbar.js"></script>
+{% endblock %}
+
+{% block charts %}
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Nombre de produits par statut</h5>
+                        <canvas id="barChart" width="400" height="400"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Répartition des prix par statut</h5>
+                        <canvas id="doughnutChart" width="400" height="400"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Évolution du prix moyen par statut</h5>
+                        <canvas id="lineChart" width="400" height="400"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', '/stathazem/stats', true);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    var data = JSON.parse(xhr.responseText);
+
+                    // Bar Chart (Nombre de produits par statut)
+                    var barCtx = document.getElementById('barChart').getContext('2d');
+                    var barChart = new Chart(barCtx, {
+                        type: 'bar',
+                        data: {
+                            labels: Object.keys(data.statuts),
+                            datasets: [{
+                                label: 'Nombre de produits par statut',
+                                data: Object.values(data.statuts),
+                                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                                borderColor: 'rgba(75, 192, 192, 1)',
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            scales: {
+                                y: {
+                                    beginAtZero: true
+                                }
+                            }
+                        }
+                    });
+
+                    // Doughnut Chart (Répartition des prix totaux par statut)
+                    var doughnutCtx = document.getElementById('doughnutChart').getContext('2d');
+                    var doughnutChart = new Chart(doughnutCtx, {
+                        type: 'doughnut',
+                        data: {
+                            labels: Object.keys(data.statuts),
+                            datasets: [{
+                                data: Object.values(data.prixTotalParStatut),
+                                backgroundColor: [
+                                    'rgba(255, 99, 132, 0.2)',
+                                    'rgba(54, 162, 235, 0.2)',
+                                    'rgba(255, 206, 86, 0.2)'
+                                ],
+                                borderColor: [
+                                    'rgba(255, 99, 132, 1)',
+                                    'rgba(54, 162, 235, 1)',
+                                    'rgba(255, 206, 86, 1)'
+                                ],
+                                borderWidth: 1
+                            }]
+                        }
+                    });
+
+                    // Line Chart (Évolution du prix moyen par statut)
+                    var lineCtx = document.getElementById('lineChart').getContext('2d');
+                    var lineChart = new Chart(lineCtx, {
+                        type: 'line',
+                        data: {
+                            labels: Object.keys(data.statuts),
+                            datasets: [{
+                                label: 'Prix moyen par statut',
+                                data: Object.values(data.prixMoyenParStatut),
+                                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                                borderColor: 'rgba(75, 192, 192, 1)',
+                                borderWidth: 1,
+                                fill: false
+                            }]
+                        },
+                        options: {
+                            scales: {
+                                y: {
+                                    beginAtZero: true
+                                }
+                            }
+                        }
+                    });
+                }
+            };
+            xhr.send();
+        });
+    </script>
+{% endblock %}

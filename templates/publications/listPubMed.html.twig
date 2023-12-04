@@ -1,0 +1,75 @@
+{% extends 'base.html.twig' %}
+
+ 
+{% block orangeblkocs %}
+{% endblock %}
+{% block whiteblocs %}
+{% endblock %}
+{% block causes %}
+{% endblock %}
+{% block donations %}
+{% endblock %}
+{% block pictures %}
+{% endblock %}
+{% block blog %}
+{% endblock %}
+{% block events %}
+{% endblock %}
+{% block navbar %}
+{% endblock %}
+{% block volunteer %}
+<section class="ftco-section">
+    <div class="container">
+        <div class="row justify-content-center mb-5 pb-3">
+            <div class="col-md-7 heading-section ftco-animate text-center">
+                
+            </div>
+        </div>
+        <div class="row d-flex">
+        {% for pub in publications %}
+            <div class="col-md-4 d-flex ftco-animate">
+                <div class="blog-entry align-self-stretch">
+                    <a href="{{ path('list_publications', {'id': pub.id}) }}" class="block-20" style="background-image: url('{{ asset('images_pub/' ~ pub.imagePath) }}'); background-size: cover; background-position: center; height: 200px; width: 100%;"></a>
+                    <div class="text p-4 d-block">
+                        <div class="meta mb-3">
+                            <div><a href="#"><p class="time-loc"><span class="mr-2"><i class="icon-clock-o"></i>{{ pub.dateDePublication | date }}</span></a></p></div>
+                            <div><a href="#">{{ pub.tags }}</a></div>
+                        </div>
+                        <h3 class="heading mt-3 text-truncate"><a href="{{ path('list_publications', {'id': pub.id}) }}">{{ pub.texte }}</a></h3>
+
+                <div class="edit-delete-images">
+                    <a href="{{ path('pub_updateMed', {'id': pub.id}) }}" class="edit-image" style="background-image: url('{{ asset('images_pub/edit.png') }}');"></a>
+                    <a href="{{ path('pub_deleteMed', {'id': pub.id}) }}" class="delete-image" style="background-image: url('{{ asset('images_pub/delete.png') }}');"></a>
+                    <a href="{{ path('show_pub_med', {'id': pub.id}) }}" class="image" style="background-image: url('{{ asset('images_pub/details.png') }}'); background-size: cover; background-position: center; height: 30px; width: 17%;"></a>
+
+                </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+    </div>
+</section>
+   <div class="text-center" style="margin-top: 20px;"> <!-- Add some margin-top for spacing -->
+
+    <a href="{{ path('add_Pub') }}" class="btn btn-primary">Retour</a>
+ <style>
+    .edit-delete-images {
+        display: flex;
+        gap: 10px; /* Espace entre les images */
+         justify-content: flex-end;
+    }
+
+    .edit-image,
+    .delete-image {
+        background-size: cover;
+        background-position: center;
+        height: 30px; /* Hauteur souhaitée */
+        width: 30px; /* Largeur souhaitée */
+        display: inline-block;
+    }
+</style>
+
+
+
+{% endblock %}

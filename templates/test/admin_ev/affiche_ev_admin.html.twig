@@ -1,16 +1,20 @@
- 
- {% extends 'base_admin.html.twig' %}
+{% extends 'base_admin.html.twig' %}
  {% block sidebar %}
+
         <!-- Sidebar -->
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
+            
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-                <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-laugh-wink"></i>
-                </div>
-                <div class="sidebar-brand-text mx-3"> Admin</div>
+<div class="sidebar-brand-icon">
+    <img src="{{ asset('images/logor.png') }}" alt="Your Logo" style="width: 50px; height: auto;">
+</div>
+
+                <div class="sidebar-brand-text mx-3"> CommuniHelp</div>
             </a>
+
+
 
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
@@ -26,36 +30,30 @@
             <hr class="sidebar-divider">
 
             <!-- Heading -->
-            <div class="sidebar-heading">
-                Interface
-            </div>
+            
 
             <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" >
-                    
-                    <span>Evennement</span>
-                </a>
+               <li class="nav-item">
+    <a class="nav-link collapsed" href="{{ path('app_findadmin') }}">
+        <span>Évènements</span>
+    </a>
+</li>
               
-            </li>
-              <li class="nav-item">
-                <a class="nav-link collapsed" href="#" >
-                    
-                    <span>Appel au dons</span>
-                </a>
-              
-            </li>
-             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" >
-                    
-                    <span>Boutique</span>
-                </a>
-              
-            </li>
+           <li class="nav-item">
+    <a class="nav-link collapsed" href="{{ path('app_admin_article') }}">
+        <span>Appels aux dons</span>
+    </a>
+</li>
+    
+           <li class="nav-item">
+    <a class="nav-link collapsed" href="{{ path('app_admin_produit') }}">
+        <span>Boutique</span>
+    </a>
+</li>
                   <li class="nav-item">
                 <a class="nav-link collapsed" href="#" >
                     
-                    <span>Bloc santé</span>
+                    <span>Blog santé</span>
                 </a>
               
             </li>
@@ -68,59 +66,7 @@
             <!-- Divider -->
             <hr class="sidebar-divider">
 
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Addons
-            </div>
-
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-                    aria-expanded="true" aria-controls="collapsePages">
-                    <i class="fas fa-fw fa-folder"></i>
-                    <span>Pages</span>
-                </a>
-                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Login Screens:</h6>
-                        <a class="collapse-item" href="login.html">Login</a>
-                        <a class="collapse-item" href="register.html">Register</a>
-                        <a class="collapse-item" href="forgot-password.html">Mot de passe oubliée</a>
-                        <div class="collapse-divider"></div>
-                    
-                       
-                    </div>
-                </div>
-            </li>
-
-            <!-- Nav Item - Charts -->
-            <li class="nav-item">
-                <a class="nav-link" href="charts.html">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Charts</span></a>
-            </li>
-
-            <!-- Nav Item - Tables -->
-            <li class="nav-item">
-                <a class="nav-link" href="tables.html">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>Tables</span></a>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider d-none d-md-block">
-
-            <!-- Sidebar Toggler (Sidebar) -->
-            <div class="text-center d-none d-md-inline">
-                <button class="rounded-circle border-0" id="sidebarToggle"></button>
-            </div>
-
-            <!-- Sidebar Message -->
-            <div class="sidebar-card d-none d-lg-flex">
-                <img class="sidebar-card-illustration mb-2" src="img/undraw_rocket.svg" alt="...">
-                <p class="text-center mb-2"><strong>SB Admin Pro</strong> is packed with premium features, components, and more!</p>
-                <a class="btn btn-success btn-sm" href="https://startbootstrap.com/theme/sb-admin-pro">Upgrade to Pro!</a>
-            </div>
+           
 
         </ul>
         <!-- End of Sidebar -->
@@ -128,46 +74,52 @@
 
   {% endblock %}
 {% block dashboard %}
-  <div class="table-responsive">
-    <table class="table table-bordered table-hover" style="background-color: #FFE5CC;">
-      <thead>
-        <tr>
-          <th>Nom</th>
-          <th>Lieu</th>
-          <th>Date</th>
-          <th>Image</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for e in ev %}
-          <tr>
-            <td>{{ e.nom }}</td>
-            <td>{{ e.lieu }}</td>
-            <td>{{ e.date }}</td>
-            <td>
-              <img src="uploads/{{ asset(e.path) }}" class="img-fluid" alt="" style="max-height: 50px;">
-            </td>
-            <td>
-        <form method="post" action="{{ path('admin_delete', {'id': e.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette carte ?')">
-    <button type="submit" class="btn btn-danger">Supprimer</button>
-     <!-- Bouton "Modifier" pour chaque carte -->
-                            <a href="{{ path('app_event_editad', {'id': e.id}) }}" class="btn btn-primary">Modifier</a>
-                            
-                        
-        </form>
-
-
-
-            </td>
-          </tr>
-        {% endfor %}
-      
-      </tbody>
+<div class="table-responsive">
+    <table class="table table-bordered table-hover" style="background: linear-gradient(45deg, #2980B9, #6DD5FA); color: black;">
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Lieu</th>
+                <th>Date</th>
+                <th>Image</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for e in ev %}
+            <tr>
+                <td style="color: black;">{{ e.nom }}</td>
+                <td style="color: black;">{{ e.lieu }}</td>
+                <td style="color: black;">{{ e.date }}</td>
+                <td style="color: black;">
+                    <img src="uploads/{{ asset(e.path) }}" class="img-fluid" alt="" style="max-height: 50px;">
+                </td>
+                <td style="color: black;">
+                    <form method="post" action="{{ path('admin_delete', {'id': e.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette carte ?')">
+                        <button type="submit" class="btn btn-link" style="padding: 0; background: none; border: none;">
+                            <i class="fas fa-trash-alt" style="color: red; font-size: 1.5em;" title="Supprimer"></i>
+                        </button>
+                    
+                    <a href="{{ path('app_event_editad', {'id': e.id}) }}" title="Modifier">
+                        <i class="fas fa-edit" style="color: blue; font-size: 1.5em;"></i>
+                    </a>
+                </td>
+                </form>
+            </tr>
+            {% endfor %}
+        </tbody>
     </table>
-      <a href="{{ path('app_findpar') }}" class="btn btn-primary">Voir les participants</a>
-  </div>
+</div>
+<div class="text-center mt-4">
+    <a href="{{ path('app_findpar') }}" class="btn btn-primary btn-lg">Voir Participants</a>
+</div>
+
+
+{% block charts %}
+  {% endblock %}
+  {% block contenu %}
+  {% endblock %}
+   {% block footer %}
+  {% endblock %}
+  
 {% endblock %}
-
-
-              

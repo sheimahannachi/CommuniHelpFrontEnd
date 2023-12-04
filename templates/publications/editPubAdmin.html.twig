@@ -1,0 +1,27 @@
+{% extends 'baseadmin.html.twig' %}
+{% block contenu %}
+{% endblock %}
+ {% block charts %}
+ {% endblock %}
+
+  {% block dashboard %}
+
+    <section class="ftco-section-3 img" style="background-image: url('{{ asset('images/bg_3.jpg') }}');">    	<div class="overlay"></div>
+        <div class="container">
+            <div class="row d-md-flex">
+                <div class="col-md-6 d-flex ftco-animate">
+
+                <div align="center">
+                <h2> add Post </h2>
+    
+                {{form(formAdmin)}}
+    
+                </div>
+                   
+                </div>
+                <div class="col-md-6 volunteer pl-md-5 ftco-animate">
+                    </div>
+            </div>
+        </div>
+    </section>
+ {% endblock %}

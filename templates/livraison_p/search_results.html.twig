@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+
+{% block Blog %}
+    <div id="search-results">
+       {% for product in matchedProducts %}
+    <div>{{ product.nomProd }}</div>
+    {# Affichez d'autres informations du produit comme nécessaire #}
+{% endfor %}
+    </div>
+{% endblock %}
+{% block whiteblocs %}{% endblock %}
+
+{% block causes %}{% endblock %}
+{% block donations %}{% endblock %}
+
+{% block pictures %}{% endblock %}
+
+{% block events %}{% endblock %}
+
+{% block volunteer %}{% endblock %}

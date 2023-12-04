@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block blog %} {# Assurez-vous que le nom du bloc correspond #}
+
+   <h1>Résultats de la recherche</h1>
+
+    {% if products is not empty %}
+        <ul>
+            {% for product in products %}
+                <li>{{ product.name }} - {{ product.description }} - {{ product.price }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Aucun produit trouvé pour la recherche "{{ productName }}".</p>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login Page</title>
+  <style>
+    *,
+    *:before,
+    *:after {
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: 'Raleway', sans-serif;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #60b8d4 0%, #3745b5 100%);
+    }
+
+    .container {
+      position: relative;
+      width: 400px;
+      height: 400px;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .top,
+    .bottom {
+      position: absolute;
+      width: 200vmax;
+      height: 200vmax;
+      top: 50%;
+      left: 50%;
+      margin-top: -100vmax;
+      transform-origin: 0 50%;
+      transition: all 0.5s cubic-bezier(0.445, 0.05, 0, 1);
+      z-index: 10;
+      opacity: 0.65;
+      transition-delay: 0.2s;
+    }
+
+    .top:before {
+      content: '';
+      display: block;
+      position: absolute;
+      background: #e46569;
+      width: 100%;
+      height: 100%;
+      transform: rotate(45deg);
+    }
+
+    .top:after {
+      content: '';
+      display: block;
+      position: absolute;
+      background: #ecaf81;
+      width: 100%;
+      height: 100%;
+      transform: rotate(135deg);
+    }
+
+    .bottom:before {
+      content: '';
+      display: block;
+      position: absolute;
+      background: #e46569;
+      width: 100%;
+      height: 100%;
+      transform: rotate(-45deg);
+    }
+
+    .bottom:after {
+      content: '';
+      display: block;
+      position: absolute;
+      background: #ecaf81;
+      width: 100%;
+      height: 100%;
+      transform: rotate(-135deg);
+    }
+
+    .center {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 30px;
+      color: #333;
+      transition: all 0.5s cubic-bezier(0.445, 0.05, 0, 1);
+      opacity: 0;
+      z-index: 20;
+    }
+
+    .container:hover .top:before,
+    .container:hover .bottom:before,
+    .container:hover .top:after,
+    .container:hover .bottom:after {
+      margin-left: 200px;
+      transform-origin: -200px 50%;
+      transition-delay: 0s;
+    }
+
+    .container:hover .center {
+      opacity: 1;
+      transition-delay: 0.2s;
+    }
+
+    input {
+      width: 100%;
+      padding: 15px;
+      margin: 5px;
+      border-radius: 1px;
+      border: 1px solid #ccc;
+      font-family: inherit;
+    }
+    button {
+      padding: 12px 24px;
+      background-color: #fff;
+      color: #333;
+      border: 2px solid #fff;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #333;
+      color: #fff;
+      border-color: #333;
+    }
+     .center {
+      /* ... (your existing styles for .center) ... */
+      text-align: center; /* Aligning buttons in the center */
+    }
+
+    .center .registration-buttons {
+      margin-top: 20px; /* Adding margin between buttons */
+    }
+
+    .center .registration-buttons button {
+      margin-bottom: 10px; /* Adding space between buttons */
+      padding: 10px 20px; /* Adjusting button padding */
+      display: block; /* Displaying buttons as block elements */
+      width: 100%; /* Making buttons occupy full width */
+      background-color: #fff;
+      color: #333;
+      border: 2px solid #fff;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+    }
+
+    .center .registration-buttons button:hover {
+      background-color: #333;
+      color: #fff;
+      border-color: #333;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="top"></div>
+    <div class="bottom"></div>
+    <div class="center">
+      <h2>Please Sign In</h2>
+      <input type="email" placeholder="Email">
+      <input type="password" placeholder="Password">
+      <button type="submit">Login</button>
+      <div class="registration-buttons">
+       <a href="{{ path('add_Benevole') }}">
+    <button type="submit">Inscription en tant que Bénévole</button>
+</a>  
+ <a href="{{ path('add_medcin') }}">
+    <button type="submit">Inscription en tant que Médecin</button>
+</a>
+                                                             
+        <button type="submit">Inscription en tant qu'Association</button>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

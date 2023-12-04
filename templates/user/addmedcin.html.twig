@@ -1,0 +1,12 @@
+{# add_medcin.html.twig #}
+
+
+{% block title %}Ajouter un Médecin{% endblock %}
+
+{% block body %}
+    <h1>Ajouter un Médecin</h1>
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <button type="submit">Ajouter</button>
+    {{ form_end(form) }}
+{% endblock %}

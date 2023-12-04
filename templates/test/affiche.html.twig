@@ -1,12 +1,41 @@
 {% extends 'base.html.twig' %}
 
+{% block navbar %}
+  <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+    <div class="container">
+      <a class="navbar-brand" href="{{ asset('index.html') }}">CommuniHelp</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="oi oi-menu"></span> Menu
+      </button>
+
+      <div class="collapse navbar-collapse" id="ftco-nav">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active"><a href="{{ asset('') }}" class="nav-link">Acceuil</a></li>
+<li class="nav-item"><a href="{{ path('app_article_index') }}" class="nav-link">Appel aux dons</a></li>    
+      <li class="nav-item"><a href="{{ asset('/find') }}" class="nav-link">Événements</a></li>
+
+<li class="nav-item"><a href="{{ path('app_produits_info_index') }}" class="nav-link">Boutique</a></li>    
+          <li class="nav-item"><a href="{{ path('list_publications') }}" class="nav-link">Blog santé</a></li>
+          <li class="nav-item"><a href="{{ path('edit_association', {'id': user.id}) }}" class="nav-link">Profil</a></li>
+            <li class="nav-item"><a href="{{ path('app_logout') }}"class="nav-link">Déconnexion</a></li>
+
+        </ul>
+      </div>
+    </div>
+  </nav>
+        {% endblock %}
+
 {% block orangeblkocs %}
+
+
+
     <div class="hero-wrap" style="background-image: url('{{ asset('images/bg_7.jpg') }}');" data-stellar-background-ratio="0.5">      
         <div class="overlay"></div>
         <div class="container">
             <div class="row no-gutters slider-text align-items-center justify-content-center" data-scrollax-parent="true">
                 <div class="col-md-7 ftco-animate text-center" data-scrollax=" properties: { translateY: '70%' }">
-                    <h1 class="mb-4" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Ne rien faire n'est pas une option de notre vie</h1>
+                    <h1 class="mb-4" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">
+  <h1>Ne rien faire n'est pas une option de notre vie</h1>
                     <p data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><a href="https://vimeo.com/45830194" class="btn btn-white btn-outline-white px-4 py-3 popup-vimeo"><span class="icon-play mr-2"></span>Voir la vidéo</a></p>
                 </div>
             </div>
@@ -41,3 +70,4 @@
         </div>
     </section>
 {% endblock %}
+

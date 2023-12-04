@@ -1,0 +1,56 @@
+{% extends 'baseadmin.html.twig' %}
+
+{% block dashboard %}{% endblock %}
+
+{% block charts %}
+<div class="container mt-5">
+        <h1>{{ produits_info.nomProd }}</h1>
+        <div class="row">
+            <div class="col-md-4">
+                <img src="{{ asset('images/' ~ produits_info.image) }}" alt="{{ produits_info.nomProd }}" style="max-width: 100%;">
+            </div>
+            <div class="col-md-8">
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <th scope="row">Prix</th>
+                            <td>{{ produits_info.prixProd }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Description</th>
+                            <td>{{ produits_info.descProd }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Status</th>
+                            <td>{{ produits_info.statutProd }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+ {% block contenu %}  {% endblock %}
+
+
+
+{% block footer %}
+    <style>
+        footer.ftco-footer {
+            max-height: 33vh; /* 1/3 de la hauteur de la vue */
+            overflow-y: auto; /* Ajout d'une barre de défilement si le contenu dépasse */
+        }
+    </style>
+
+    <footer class="ftco-footer ftco-section img">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col-md-12">
+                    
+                </div>
+            </div>
+        </div>
+    </footer>
+{% endblock %}

@@ -1,0 +1,151 @@
+{% extends 'base.html.twig' %}
+
+{% block whiteblocs %}{% endblock %}
+
+{% block orangeblkocs %}
+<div class="hero-wrap" style="background-image: url('{{ asset('images/bg_7.jpg') }}');" data-stellar-background-ratio="0.5">      
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row no-gutters slider-text align-items-center justify-content-center" data-scrollax-parent="true">
+            <div class="col-md-7 ftco-animate text-center" data-scrollax=" properties: { translateY: '70%' }">
+                <h1 class="mb-4" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Chaque acte compte, chaque cœur fait la différence !</h1>
+                <p data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><a href="https://vimeo.com/45830194" class="btn btn-white btn-outline-white px-4 py-3 popup-vimeo"><span class="icon-play mr-2"></span>Voir la vidéo</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block causes %}
+    <div class="container text-center mt-5">
+    <style>
+
+
+
+
+@import url(https://fonts.googleapis.com/css?family=Lato:400,900|Montez);
+
+thisbody { 
+  background-image: url('http://site-blogmanager.com/background.jpg');
+  background-repeat: no-repeat;
+  background-position: top center;
+  width: 100%;
+  background-size: cover;
+  height: 100%;
+  min-height: 1000px;
+  overflow: hidden;
+}
+
+h22 {
+  font-family: Montez;
+  font-size: 4em;
+  text-align: center;
+  color: #D42C2C;
+  
+  text-shadow: 0px 0px 15px #fff;
+  -webkit-text-shadow: 0px 0px 15px #fff;
+  -moz-text-shadow: 0px 0px 15px #fff;
+  -ms-text-shadow: 0px 0px 15px #fff;
+  -o-text-shadow: 0px 0px 15px #fff;
+}
+
+
+
+
+    </style>
+        <h22>Historique des dons</h22>
+  <div class="text-container">
+    <h1 class="animated-text"></h1>
+  </div>
+  
+  <style>.text-container {
+  width: 100%;
+  height: 30vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.animated-text {
+  font-size: 25px;
+  font-family: Arial, sans-serif;
+  color: #333;
+  opacity: 0;
+  animation: textAnimation 2s forwards;
+}
+
+@keyframes textAnimation {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+  </style>
+  <script>
+  const text = " Chaque donateur est une lumière qui transforme le monde 🌟 . Avec la grâce de Dieu, nous acheminons ces dons vers ceux qui en ont le plus besoin 💖.";
+const textContainer = document.querySelector(".animated-text");
+
+function animateText() {
+  let index = 0;
+  const interval = setInterval(() => {
+    textContainer.textContent += text[index];
+    index++;
+    if (index === text.length) {
+      clearInterval(interval);
+    }
+  }, 100);
+}
+
+animateText();
+
+  
+  </script>
+  
+  
+  
+  
+          <table class="table table-bordered table-striped mt-4">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Prénom</th>
+                    <th scope="col">Ville</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Image</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for history in histories %}
+                    <tr>
+                        <td>{{ history.getNom() }}</td>
+                        <td>{{ history.getPrenom() }}</td>
+                        <td>{{ history.getDonationVille() }}</td>
+                        <td>{{ history.getDescription() }}</td>
+                        <td>
+                            {% if history.getImage() %}
+                                <img src="{{ asset('images/' ~ history.getImage()) }}" alt="Image" style="width: 100px; height: auto;"> 
+                            {% else %}
+                                No Image
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
+
+{% block donations %}{% endblock %}
+
+{% block pictures %}{% endblock %}
+
+{% block blog %}{% endblock %}
+
+{% block events %}{% endblock %}
+
+{% block volunteer %}{% endblock %}

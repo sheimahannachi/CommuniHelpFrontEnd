@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Settings</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f8f5ec; /* Nouvelle couleur de fond beige */
+            color: #333; /* Couleur de texte plus sombre pour une meilleure lisibilité */
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 50px auto;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            background:  #edad53; /* Nouvelle couleur de fond beige */
+        }
+
+        .header {
+            background-color:  #edad53;
+            color: #fff;
+            border-radius: 8px 8px 0 0;
+            padding: 20px;
+            text-align: center;
+        }
+
+
+        .profile-pic {
+            border-radius: 50%;
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+        }
+
+        .user-info {
+            text-align: center;
+        }
+
+        .user-info span {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .main-content {
+            padding: 20px;
+        }
+
+        .form-row {
+            margin-bottom: 15px;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+        .btn-primary {
+            background-color:  #3729172c;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+         .form-group {
+            margin-bottom: 20px;
+        }
+
+        .labels {
+            font-weight: bold;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+        .btn-primary {
+            background-color:  #edad53;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color:  #3729172c;
+        }
+
+        .btn-primary:hover {
+            background-color:  #3729172c;
+        }
+    </style>
+</head>
+{% block body %}
+    <div class="container">
+        <div class="header">
+            <h2>Profile Settings</h2>
+        </div>
+        <div class="row">
+            <div class="col-md-3 border-right">
+                <div class="user-info">
+                    <img class="profile-pic" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg" alt="Profile Picture">
+                    <span class="font-weight-bold">{{ user.nom }}</span>
+                    <span class="text-black-50">   {# Use the 'user' variable here #}
+    <h1>Welcome,  {{ user.email }}!  DANS VOTRE ESPACE</h1>
+</span>
+                </div>
+            </div>
+            <div class="col-md-5 border-right">
+                <div class="main-content">
+                    {{ form_start(form) }}
+                    <div class="form-row">
+                        <div class="col-md-6">
+                            {{ form_label(form.nom, 'Nom', {'label_attr': {'class': 'labels'}}) }}
+                            {{ form_widget(form.nom, {'attr': {'class': 'form-control', 'placeholder': 'Nom'}}) }}
+                        </div>
+                        
+                    </div>
+                    <!-- ... (Autres champs du formulaire) -->
+                    <div class="form-row">
+                        <div class="col-md-6">
+                            {{ form_label(form.email, 'Email', {'label_attr': {'class': 'labels'}}) }}
+                            {{ form_widget(form.email, {'attr': {'class': 'form-control', 'placeholder': 'Email'}}) }}
+                        </div>
+                        <div class="col-md-6">
+                            {{ form_label(form.num_tel, 'Numéro telephone', {'label_attr': {'class': 'labels'}}) }}
+                            {{ form_widget(form.num_tel, {'attr': {'class': 'form-control', 'placeholder': 'Numéro telephone'}}) }}
+                        </div>
+                    
+                         <div class="col-md-6">
+                            {{ form_label(form.password, 'Mot de passe', {'label_attr': {'class': 'labels'}}) }}
+                            {{ form_widget(form.password, {'attr': {'class': 'form-control', 'placeholder': 'Mot de passe'}}) }}
+                        </div>
+                        
+                        <div class="col-md-6">
+                            {{ form_label(form.adresse, 'Adresse', {'label_attr': {'class': 'labels'}}) }}
+                            {{ form_widget(form.adresse, {'attr': {'class': 'form-control', 'placeholder': 'Adresse'}}) }}
+                        </div>
+                        <div class="col-md-6">
+                            {{ form_label(form.Status, 'Status', {'label_attr': {'class': 'labels'}}) }}
+                            {{ form_widget(form.Status, {'attr': {'class': 'form-control', 'placeholder': 'Status'}}) }}
+                        </div>
+                        <div class="col-md-6">
+                            {{ form_label(form.roles, 'Roles', {'label_attr': {'class': 'labels'}}) }}
+                            {{ form_widget(form.roles, {'attr': {'class': 'form-control', 'placeholder': 'Roles'}}) }}
+                        </div>
+                         
+                    </div>
+                    <div class="text-right">
+                        <button class="btn btn-primary" type="submit">Save Profile</button>
+                    </div>
+                    
+                    {{ form_end(form) }}
+                </div>
+            </div>
+            <div class="col-md-4">
+                <!-- ... (Autres éléments de la colonne de droite) -->
+            </div>
+        </div>
+    </div>
+{% endblock %}

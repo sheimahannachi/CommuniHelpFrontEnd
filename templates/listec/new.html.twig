@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Listec{% endblock %}
+
+{% block body %}
+    <h1>Create new Listec</h1>
+
+    {{ include('listec/_form.html.twig') }}
+
+    <a href="{{ path('app_listec_index') }}">back to list</a>
+{% endblock %}

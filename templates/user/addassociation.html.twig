@@ -1,0 +1,77 @@
+{% extends 'base.html.twig' %}
+
+{% block orangeblkocs %}
+{% endblock %}
+{% block whiteblocs %}
+{% endblock %}
+{% block causes %}
+{% endblock %}
+{% block donations %}
+{% endblock %}
+{% block pictures %}
+{% endblock %}
+{% block blog %}
+{% endblock %}
+{% block events %}
+{% endblock %}
+{% block navbar %}
+{% endblock %}
+{% block volunteer %}
+    <style>
+        /* Style pour les champs de formulaire en noir */
+        .form-control {
+            color: black;
+        }
+
+        /* Style pour les placeholders en noir */
+        .form-control::placeholder {
+            color: black;
+        }
+    </style>
+
+
+
+<section class="ftco-section-3 img" style="background-image: url('{{ asset('images/bg_3.jpg') }}');">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row d-md-flex">
+                <div class="col-md-6 d-flex ftco-animate">
+                    <div class="img img-2 align-self-stretch" style="background-image: url('{{ asset('uploads/ins.avif') }}');"></div>
+                </div>
+                <div class="col-md-6 volunteer pl-md-5 ftco-animate">
+                    <h3 class="mb-3">Ajout Association</h3>
+                    <form action="{{ path('add_association') }}" class="volunteer-form" method="post">
+                        {{ form_start(form) }}
+                        <div class="form-group">
+                            {{ form_row(form.email, {'attr': {'class': 'form-control', 'placeholder': 'Email'}}) }}
+                        </div>
+                        <div class="form-group">
+                            {{ form_row(form.nom, {'attr': {'class': 'form-control', 'placeholder': 'Nom'}}) }}
+                        </div>
+                                                
+                        <div class="form-group">
+    {{ form_label(form.password, 'Mot de passe') }}
+    {{ form_widget(form.password, {'attr': {'class': 'form-control', 'placeholder': 'Mot de passe'}}) }}
+</div>
+
+
+                        <div class="form-group">
+                            {{ form_row(form.adresse, {'attr': {'class': 'form-control', 'placeholder': 'Adresse'}}) }}
+                        </div>
+                        <div class="form-group">
+                            {{ form_row(form.num_tel, {'attr': {'class': 'form-control', 'placeholder': 'Numéro de téléphone'}}) }}
+                        </div>
+                        <div class="form-group">
+                            {{ form_row(form.roles, {'attr': {'class': 'form-control', 'placeholder': 'Rôles'}}) }}
+                        </div>
+                        <div class="form-group">
+                            {{ form_row(form.Status, {'attr': {'class': 'form-control', 'placeholder': 'Statut'}}) }}
+                        </div>
+                        <button type="submit" class="btn btn-primary">Ajouter</button>
+                        {{ form_end(form) }}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

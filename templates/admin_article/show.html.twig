@@ -1,0 +1,46 @@
+{% extends 'baseadmin.html.twig' %}
+
+{% block dashboard %}{% endblock %}
+
+{% block charts %}
+<div class="text-center mb-4">
+    <div class="details-container">
+                <h2 class="mb-3" style="font-size: 30px; color: #000;"><strong>Détails de l'appel aux dons</strong></h2>
+
+        {% if article.image is not null %}
+            <img src="{{ asset('images/' ~ article.image) }}" alt="Article Image" style="width: 60%; border-radius: 8px 8px 0 0; display: block; margin: 0 auto;">
+        {% endif %}
+        <div class="details-box" style="text-align: center;">
+            <p style="font-size: 20px; color: #000;"><strong>Ville:</strong> {{ article.ville }}</p>
+            <p style="font-size: 20px; color: #000;"><strong>Description:</strong> {{ article.description }}</p>
+            <p style="font-size: 20px; color: #000;"><strong>Contact:</strong> {{ article.contact }}</p>
+            <p style="font-size: 20px; color: #000;"><strong>Date de fin de l'appel au don :</strong> {{ article.creationDate ? article.creationDate|date('Y-m-d') : 'N/A' }}</p>
+                <a href="{{ path('app_admin_article') }}" class="btn btn-secondary mt-3">Retour aux appels aux dons</a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+ {% block contenu %}  {% endblock %}
+
+
+
+{% block footer %}
+    <style>
+        footer.ftco-footer {
+            max-height: 33vh; /* 1/3 de la hauteur de la vue */
+            overflow-y: auto; /* Ajout d'une barre de défilement si le contenu dépasse */
+        }
+    </style>
+
+    <footer class="ftco-footer ftco-section img">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col-md-12">
+                    <p>À Propos de Nous</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+{% endblock %}

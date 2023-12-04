@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block navbar %}{% endblock %}
+
+{% block title %}ProduitsInfo{% endblock %}
+
+{% block nav %}
+    <h1>Détails</h1>
+{% endblock %}
+
+{% block titleSearch %} {% endblock %}
+{% block undersearch %} {% endblock %}
+
+{% block blog %}
+    <div class="container mt-5">
+        <h1>{{ produits_info.nomProd }}</h1>
+        <div class="row">
+            <div class="col-md-4">
+                <img src="{{ asset('images/' ~ produits_info.image) }}" alt="{{ produits_info.nomProd }}" style="max-width: 100%;">
+            </div>
+            <div class="col-md-8">
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <th scope="row">Prix</th>
+                            <td>{{ produits_info.prixProd }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Description</th>
+                            <td>{{ produits_info.descProd }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Status</th>
+                            <td>{{ produits_info.statutProd }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                {# Ajoutez le code pour afficher le code QR ici #}
+                <div class="text-center">
+                    <img src="{{ asset(produits_info.qrCodePath) }}" alt="QR Code du produit" style="max-width: 100%;">
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block whiteblocs %}{% endblock %}
+{% block causes %}{% endblock %}
+{% block donations %}{% endblock %}
+{% block pictures %}{% endblock %}
+{% block events %}{% endblock %}
+{% block volunteer %}{% endblock %}
+
+{% block orangeblkocs %}
+    {# Ajoutez le code pour la section orange ici si nécessaire #}
+{% endblock %}

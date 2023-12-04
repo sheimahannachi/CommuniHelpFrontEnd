@@ -1,0 +1,55 @@
+{% extends 'baseadmin.html.twig' %}
+
+
+{% block dashboard %}{% endblock %}
+{% block charts %}
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <h1 class="text-center mb-4">Modifier un produit</h1>
+
+                {{ form_start(form, {'attr': {'class': 'row g-3'}}) }}
+
+                <div class="mb-3 col-md-6">
+                    {{ form_row(form.nomProd, {'attr': {'class': 'form-control'}}) }}
+                </div>
+
+                <div class="mb-3 col-md-6">
+                    {{ form_row(form.prixProd, {'attr': {'class': 'form-control'}}) }}
+                </div>
+
+                <div class="mb-3 col-12">
+                    {{ form_row(form.descProd, {'attr': {'class': 'form-control'}}) }}
+                </div>
+
+                <div class="mb-3 col-md-6">
+                    {{ form_row(form.statutProd, {'attr': {'class': 'form-control'}}) }}
+                </div>
+
+                <div class="mb-3 col-md-6">
+                    {{ form_row(form.image, {'attr': {'class': 'form-control'}}) }}
+                </div>
+
+                <img id="image-preview" src="{{ asset('images/' ~ produits_info.image) }}" alt="Product Image" class="mt-3" style="width: 200px; height: auto;">
+
+                <div class="mt-4">
+                    {{ form_end(form) }}
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %} 
+{% block contenu %}{% endblock %}
+ {% block footer %}
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; Your Website 2021</span>
+                    </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
+  {% endblock %}
+

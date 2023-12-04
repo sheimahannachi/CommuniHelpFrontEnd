@@ -1,13 +1,46 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>PDF Template</title>
+    <title>Invitation à l'événement</title>
+    <style>
+        /* Styles CSS pour le PDF */
+        body {
+            font-family: 'Times New Roman', Times, serif; /* Changer la police */
+            margin: 20px;
+            color: #333;
+        }
+        h1 {
+            text-align: center;
+        }
+        .participant-info {
+            margin-top: 20px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            color: red; /* Couleur rouge pour les variables */
+        }
+        .participant-info p {
+            margin: 5px 0;
+        }
+        .event-image {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .event-image img {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
 </head>
 <body>
-    <h1>Données du formulaire :</h1>
-    <p>Nom: {{ formData['Nom'] }}</p>
-    <p>Numéro: {{ formData['Numéro'] }}</p>
-    <p>Email: {{ formData['Email'] }}</p>
-    <!-- Autres données du formulaire si nécessaire -->
+    <h1>Invitation à l'événement</h1>
+
+    <div class="participant-info">
+        <p>Bonjour Monsieur <h1>{{ nom }}</h1> avec le numéro <h1>{{ num }}</h1> et l'adresse email <h1>{{ mail }}</h1>.</p>
+        <p>Vous êtes invité à notre événement.</p>
+    </div>
+
+    <img src="{{ asset('uploads/help.png') }}" alt="Invitation" />
+
+
 </body>
 </html>

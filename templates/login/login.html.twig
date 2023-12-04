@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login</title>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f5f5dc; /* Couleur beige */
+      font-family: Arial, sans-serif;
+    }
+
+    .container {
+      margin-top: 50px;
+    }
+
+    .login-form {
+      background-color: #fff; /* Couleur blanc */
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .login-form h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #555; /* Couleur du texte */
+    }
+
+    .form-group {
+      margin-bottom: 25px;
+    }
+
+    .form-group label {
+      font-weight: bold;
+    }
+
+    .form-control {
+      border-radius: 5px;
+      border: 1px solid #ccc; /* Couleur de la bordure */
+      padding: 10px;
+    }
+
+    .btn-login {
+      width: 100%;
+      background-color: #d2b48c; /* Couleur du bouton (beige) */
+      border: none;
+      border-radius: 5px;
+      padding: 10px;
+      color: #fff; /* Couleur du texte du bouton */
+    }
+
+    .btn-login:hover {
+      background-color: #deb887; /* Couleur au survol (beige plus clair) */
+    }
+
+    .btn-registration {
+      width: 100%;
+      margin-top: 10px;
+      text-align: center;
+    }
+
+    .btn-registration a {
+      text-decoration: none;
+      color: #d2b48c; /* Couleur du texte des liens (beige) */
+    }
+
+    .btn-registration a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="login-form">
+                    <h2>Login</h2>
+                    {% for message in app.flashes('error') %}
+                        <div class="alert alert-danger" role="alert">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                    <form action="{{ path('check_role') }}" method="POST">
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" class="form-control" id="password" name="password" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-login">Login</button>
+                    </form>
+                    <div class="btn-registration">
+                        <a href="{{ path('add_Benevole') }}">Inscription en tant que Bénévole</a>
+                    </div>
+                    <div class="btn-registration">
+                        <a href="{{ path('add_medcin') }}">Inscription en tant que Médecin</a>
+                    </div>
+                    <div class="btn-registration">
+                        <a href="{{ path('add_association') }}">Inscription en tant qu'Association</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

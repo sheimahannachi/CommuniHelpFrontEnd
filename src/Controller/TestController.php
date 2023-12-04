@@ -7,12 +7,16 @@ use App\Repository\TestRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\TextUI\XmlConfiguration\File;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use App\Entity\User;
+
 
 
 
@@ -23,13 +27,16 @@ class TestController extends AbstractController
     {
         return $this->render('test/index.html.twig', [
             'controller_name' => 'TestController',
+
         ]);
     }
     #[Route('/find', name: 'app_find')]
-    public function affiche(TestRepository $repository)
-    {
+    public function affiche(TestRepository $repository,SessionInterface $session)
+    {   $user = $session->get('user');
         $event=$repository->findAll();
-        return $this->render('test/affiche.html.twig',['event'=>$event]);
+        return $this->render('test/affiche.html.twig',['event'=>$event ,
+         'user'=>$user,
+        ]);
 
     }
     #[Route('/add', name: 'app_add')]
@@ -116,4 +123,45 @@ class TestController extends AbstractController
             'event' => $event,
             'form' => $form->createView(),
         ]);
-    }}
+    }
+    #[Route('/association/edit/{id}', name: 'edit_association')]
+    public function editBenevole(Request $request, EntityManagerInterface $entityManager, int $id): Response
+    {
+        $user = $entityManager->getRepository(User::class)->find($id);
+
+        if (!$user) {
+            throw $this->createNotFoundException('Utilisateur non trouvé');
+        }
+
+        $form = $this->createFormBuilder($user)
+            ->add('email')
+            ->add('nom')
+            ->add('password')
+            ->add('adresse')
+            ->add('num_tel')
+            ->add('roles', ChoiceType::class, [
+                'choices' => [
+                    'ROLE_ASSOCIATION' => 'ROLE_ASSOCIATION', // Valeur par défaut pour ROLE_BENEVOLE
+                ]
+            ])
+            ->add('Status')
+            ->getForm();
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Gérez ici la logique de sauvegarde des données modifiées
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_connect');
+        }
+
+        return $this->render('user/editassociation.html.twig', [
+            'form' => $form->createView(),
+            'user'=>$user,
+        ]);
+    }
+
+
+
+}

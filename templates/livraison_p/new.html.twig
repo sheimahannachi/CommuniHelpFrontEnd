@@ -1,0 +1,136 @@
+{% extends 'base.html.twig' %}
+
+{% block orangeblkocs %}
+        
+
+    <script src="https://js.stripe.com/v3/"></script>
+{% endblock %}
+{% block blog %}
+    
+{% endblock %}
+
+{% block whiteblocs %}{% endblock %}
+
+{% block causes %}{% endblock %}
+{% block donations %}{% endblock %}
+
+{% block pictures %}{% endblock %}
+
+{% block events %}{% endblock %}
+
+{% block volunteer %}
+{% block voulenteer %}
+      <section class="ftco-section-3 img" style="background-image: url('{{ asset('images/bg_3.jpg') }}');">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row d-md-flex">
+            
+                <div class="col-md-6 d-flex ftco-animate">
+                    <div class="img img-2 align-self-stretch" style="background-image: url('{{ asset('images/bg_4.jpg') }}');"></div>
+                </div>
+                <div class="col-md-6 volunteer pl-md-5 ftco-animate">
+                    <h3 class="mb-3">Informations de Livraison</h3>
+                    <form method="post" id="payment-form">
+                        {{ form_start(form, {'attr': {'class': 'volunteer-form', 'novalidate': 'novalidate', 'enctype': 'multipart/form-data'}}) }}
+                        
+                        <div class="form-group mb-3">
+                            {{ form_label(form.nomliv, 'Nom', {'label_attr': {'class': 'form-label'}}) }}
+                            {{ form_widget(form.nomliv, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_errors(form.nomliv) }}
+                        </div>
+
+                        <div class="form-group mb-3">
+                            {{ form_label(form.prenomliv, 'Prénom', {'label_attr': {'class': 'form-label'}}) }}
+                            {{ form_widget(form.prenomliv, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_errors(form.prenomliv) }}
+                        </div>
+
+                        <div class="form-group mb-3">
+                            {{ form_label(form.phonelivr, 'Téléphone', {'label_attr': {'class': 'form-label'}}) }}
+                            {{ form_widget(form.phonelivr, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_errors(form.phonelivr) }}
+                        </div>
+
+                        <div class="form-group mb-3">
+                            {{ form_label(form.adresse, 'Adresse', {'label_attr': {'class': 'form-label'}}) }}
+                            {{ form_widget(form.adresse, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_errors(form.adresse) }}
+                        </div>
+
+                        <div class="form-group mb-3">
+                            {{ form_label(form.email, 'Email', {'label_attr': {'class': 'form-label'}}) }}
+                            {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_errors(form.email) }}
+                        </div>
+
+                        <div id="card-element"></div>
+                        <div id="card-errors" role="alert"></div>
+
+                        <input type="hidden" id="payment-method-input" name="paymentMethodId" value="">
+
+                        <div class="form-group">
+                            <input type="submit" value="Soumettre" class="btn btn-primary btn-block py-3">
+                        </div>
+
+                        {{ form_end(form) }}
+                    </form>
+
+                    <div class="row" id="produits-container">
+                        {# Your existing product display logic... #}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <style>
+        .product-image {
+            height: 150px;
+            background-size: contain;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+    </style>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var produitItems = document.getElementsByClassName("blog-entry");
+            var delay = 1000;
+
+            for (var i = 0; i < produitItems.length; i++) {
+                setTimeout(function (index) {
+                    produitItems[index].style.opacity = 1;
+                }, i * delay, i);
+            }
+        });
+
+        var stripe = Stripe('pk_test_51OEf1yIE7WmosFsXQM419wGsf14REcB9gzwgit8ySGPTjy1OwodLE1CLY7P0brMQ9ckWZhBDn286UrrgRm6qEPjv00OM0QmUto');
+        var elements = stripe.elements();
+        var cardElement = elements.create('card');
+
+        cardElement.mount('#card-element');
+
+        var form = document.getElementById('payment-form');
+        form.addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            stripe.createPaymentMethod({
+                type: 'card',
+                card: cardElement,
+            }).then(function (result) {
+                if (result.error) {
+                    var errorElement = document.getElementById('card-errors');
+                    errorElement.textContent = result.error.message;
+                } else {
+                    var paymentMethodInput = document.getElementById('payment-method-input');
+                    paymentMethodInput.value = result.paymentMethod.id;
+                    form.submit();
+                }
+            });
+        });
+    </script>
+{% endblock %}
+{% endblock %}
+
+
+

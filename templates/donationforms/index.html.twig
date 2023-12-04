@@ -1,0 +1,177 @@
+{% extends 'article/index.html.twig' %}
+
+{% block navbar %}
+  <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+    <div class="container">
+      <a class="navbar-brand" href="{{ asset('index.html') }}">CommuniHelp</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="oi oi-menu"></span> Menu
+      </button>
+
+      <div class="collapse navbar-collapse" id="ftco-nav">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active"><a href="{{ asset('') }}" class="nav-link">Acceuil</a></li> 
+       <li class="nav-item"><a href="{{ path('app_donationforms_index' ) }}" class="nav-link">Appel aux dons</a></li> 
+      <li class="nav-item"><a href="{{ asset('/findU') }}" class="nav-link">Événements</a></li>
+      <li class="nav-item"><a href="{{ path('app_livraison_p_index') }}" class="nav-link">Boutique</a></li>    
+          <li class="nav-item"><a href="{{ path('list_publications') }}" class="nav-link">Blog santé</a></li>
+            <li class="nav-item"><a href="{{ path('app_logout') }}"class="nav-link">Déconnexion</a></li>
+
+        </ul>
+      </div>
+    </div>
+  </nav>
+        {% endblock %}
+{% block volunteer %}
+    <title>OpenStreetMap</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" integrity="sha384-rOA1PnstxnOBLzCLMcre8ybwbTmemjzdNlILg8O7z1lUkLXozs4DHonlDtnE7fpc" crossorigin="anonymous"></script>
+
+    <!-- CSS -->
+    <style>
+        #maCarte {
+            height: 400px;
+        }
+    </style>
+    </head>
+    <body>
+        <div id="maCarte"></div>
+
+        <!-- Fichiers Javascript -->
+        <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js" integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og==" crossorigin=""></script>
+        <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
+        <script>
+            var tableauMarqueurs = [];
+            // On initialise la carte
+var carte = L.map('maCarte').setView([33.8869, 9.5375], 6);
+            // On charge les "tuiles"
+            L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
+                // Il est toujours bien de laisser le lien vers la source des données
+                attribution: 'données © <a href="//osm.org/copyright">OpenStreetMap</a>/ODbL - rendu <a href="//openstreetmap.fr">OSM France</a>',
+                minZoom: 1,
+                maxZoom: 20
+            }).addTo(carte);
+
+            // Function to add a marker for a given city
+            function addMarkerForCity(city) {
+                // Use OpenCage Geocoding API to get latitude and longitude for the city
+                fetch(`https://api.opencagedata.com/geocode/v1/json?q=${encodeURIComponent(city)}&key=e95d9ed0683241d9a77bdd055f43d869`)
+                    .then(response => response.json())
+                    .then(data => {
+                        // Check if the API returned any results
+                        if (data.results.length > 0) {
+                            const result = data.results[0];
+                            const lat = result.geometry.lat;
+                            const lon = result.geometry.lng;
+
+                            // Create a marker for the city and add it to the map
+                            const marker = L.marker([lat, lon], {
+                                icon: L.icon({
+    iconUrl: "{{ asset('images/map.png') }}",
+                                        iconSize: [50, 50],
+                                    iconAnchor: [25, 50],
+                                    popupAnchor: [0, -50]
+                                })
+                            }).addTo(carte);
+
+                            // Add a popup with the city name
+                            marker.bindPopup(`<p>${city}</p>`);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error fetching geocoding data:', error);
+                    });
+            }
+
+            // On document ready, add markers for each city in the articles
+            document.addEventListener("DOMContentLoaded", function () {
+                {% for article in articles %}
+                    addMarkerForCity("{{ article.ville }}");
+                {% endfor %}
+            });
+        </script>
+    </body>
+{% endblock %}
+
+
+
+
+{% block orangeblkocs %}
+<div class="hero-wrap" style="background-image: url('{{ asset('images/bg_7.jpg') }}');" data-stellar-background-ratio="0.5">      
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row no-gutters slider-text align-items-center justify-content-center" data-scrollax-parent="true">
+            <div class="col-md-7 ftco-animate text-center" data-scrollax=" properties: { translateY: '70%' }">
+                <h1 class="mb-4" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Chaque acte compte, chaque cœur fait la différence !</h1>
+                <p data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><a href="https://vimeo.com/45830194" class="btn btn-white btn-outline-white px-4 py-3 popup-vimeo"><span class="icon-play mr-2"></span>Voir la vidéo</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block whiteblocs %}
+    {# Display the search form #}
+{% endblock %}
+{% block causes %}
+    <div class="text-center mb-4">
+        <div class="container">
+            <h1>Appels aux dons</h1>
+
+        </div>
+    </div> 
+        {% if articles is not empty %}
+        <div class="row">
+            <div class="col-md-12 ftco-animate">
+                <div class="carousel-cause owl-carousel">
+                    {% for article in articles %}
+                        <div class="article">
+                            <div class="item">
+                                <div class="cause-entry">
+                                    <img src="{{ asset('images/' ~ article.image) }}" class="custom-block-image img-fluid" alt="">
+                                    <div class="text p-3 p-md-4">
+                                        <p style="color: black; font-size: 18px; margin-top:30px;">{{ article.description }}</p>
+                                        <span style="color: red; font-weight: bold;" class="donation-time mb-3 d-block">Appel aux dons se termine en {{ article.creationDate.diff(date('now')).format('%a') }} jours !</span> 
+                                      <div class="article-buttons mt-2 text-center">
+    <a href="{{ path('app_article_show', {'id': article.id}) }}" class="btn btn-primary me-2">
+        <i class="fas fa-eye"></i> <!-- Eye icon for Détails -->
+    </a>
+                                            <a href="{{ path('app_confirm_donation', {'article_id': article.id}) }}" class="btn btn-danger me-2">
+                                                Faire un don !  <i class="fas fa-heart text-white"></i>
+                                            </a>
+                                            <!-- End Donate button -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <div class="container">
+            <p>Aucun appel de don ne correspond à votre recherche.</p>
+        </div>
+    {% endif %}
+    <script src="{{ asset('node_modules/owl.carousel/dist/owl.carousel.min.js') }}"></script>
+    <script>
+        // Initialize Owl Carousel after the loop
+        $(document).ready(function() {
+            $('.carousel-cause').owlCarousel({
+                // Owl Carousel options
+                items: 1,
+                loop: true,
+                // ... other options
+            });
+        });   
+         {% include 'donationforms/share-html.twig' %}
+    </script>
+{% endblock %}
+
+
+{% block donations %}{% endblock %}
+{% block pictures %}{% endblock %}
+{% block blog %}{% endblock %}
+{% block events %}{% endblock %}

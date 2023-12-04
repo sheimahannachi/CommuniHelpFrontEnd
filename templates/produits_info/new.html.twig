@@ -1,0 +1,97 @@
+{% extends 'base.html.twig' %}
+
+{% block orangeblkocs %}
+    <div class="hero-wrap" style="background-image: url('{{ asset('images/bg_7.jpg') }}');" data-stellar-background-ratio="0.5">      
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row no-gutters slider-text align-items-center justify-content-center" data-scrollax-parent="true">
+                <div class="col-md-7 ftco-animate text-center" data-scrollax=" properties: { translateY: '70%' }">
+                    <h1 class="mb-4" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Ne rien faire n'est pas une option de notre vie</h1>
+                    <p data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">
+                        <a href="https://vimeo.com/45830194" class="btn btn-white btn-outline-white px-4 py-3 popup-vimeo">
+                            <span class="icon-play mr-2"></span>Voir la vidéo
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block blog %}
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                {{ form_start(form, {'attr': {'class': 'form', 'novalidate': 'novalidate', 'enctype': 'multipart/form-data'}}) }}
+                <div class="form-group row">
+                    <div class="col-md-6">
+                        {{ form_label(form.nomProd, "Nom", {'label_attr': {'class': 'control-label'}}) }}
+                        {{ form_widget(form.nomProd, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_errors(form.nomProd) }}
+                    </div>
+                    <div class="col-md-6">
+                        {{ form_label(form.prixProd, "Prix", {'label_attr': {'class': 'control-label'}}) }}
+                        {{ form_widget(form.prixProd, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_errors(form.prixProd) }}
+                    </div>
+                </div>
+
+
+
+
+
+                
+
+                <div class="form-group">
+                    {{ form_label(form.descProd, "Description", {'label_attr': {'class': 'control-label'}}) }}
+                    {{ form_widget(form.descProd, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(form.descProd) }}
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-md-6">
+                        {{ form_label(form.statutProd, "Statut", {'label_attr': {'class': 'control-label'}}) }}
+                        {{ form_widget(form.statutProd, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_errors(form.statutProd) }}
+                    </div>
+                    <div class="col-md-6">
+                        {{ form_label(form.image, "Image", {'label_attr': {'class': 'control-label'}}) }}
+                        {{ form_widget(form.image, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_errors(form.image) }}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    {{ form_widget(form.save, {'attr': {'class': 'btn btn-primary'}}) }}
+                </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+   
+{% endblock %}
+
+
+
+{% block whiteblocs %}{% endblock %}
+
+{% block causes %}{% endblock %}
+{% block donations %}{% endblock %}
+
+{% block pictures %}{% endblock %}
+
+{% block events %}{% endblock %}
+
+{% block volunteer %}{% endblock %}
+

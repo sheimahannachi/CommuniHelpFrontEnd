@@ -1,0 +1,325 @@
+{% extends 'base.html.twig' %}
+{% block notifications %}
+    <div id="push-notification" style="position: fixed; top: 10px; right: 10px; z-index: 1000;"></div>
+{% endblock %}
+
+{% block navbar %}
+  <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+    <div class="container">
+      <a class="navbar-brand" href="{{ asset('index.html') }}">CommuniHelp</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="oi oi-menu"></span> Menu
+      </button>
+
+      <div class="collapse navbar-collapse" id="ftco-nav">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active"><a href="{{ asset('') }}" class="nav-link">Acceuil</a></li> 
+       <li class="nav-item"><a href="{{ path('app_donationforms_index' ) }}" class="nav-link">Appel aux dons</a></li> 
+      <li class="nav-item"><a href="{{ asset('/findU') }}" class="nav-link">Événements</a></li>
+      <li class="nav-item"><a href="{{ path('app_livraison_p_index') }}" class="nav-link">Boutique</a></li>    
+          <li class="nav-item"><a href="{{ path('list_publications') }}" class="nav-link">Blog santé</a></li>
+            <li class="nav-item"><a href="{{ path('app_logout') }}"class="nav-link">Déconnexion</a></li>
+
+        </ul>
+      </div>
+    </div>
+  </nav>
+        {% endblock %}
+{% block orangeblkocs %}
+    <div class="hero-wrap" style="background-image: url('{{ asset('images/bg_7.jpg') }}');" data-stellar-background-ratio="0.5">      
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row no-gutters slider-text align-items-center justify-content-center" data-scrollax-parent="true">
+                <div class="col-md-7 ftco-animate text-center" data-scrollax=" properties: { translateY: '70%' }">
+                    <h1 class="mb-4" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Ne rien faire n'est pas une option de notre vie</h1>
+                    <p data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">
+                        <a href="https://vimeo.com/45830194" class="btn btn-white btn-outline-white px-4 py-3 popup-vimeo">
+                            <span class="icon-play mr-2"></span>Voir la vidéo
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+<style>
+    table {
+        border-collapse: collapse;
+        width: 100%;
+        margin: 20px; /* Add margin to the table */
+    }
+
+    th, td {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+
+    h3 {
+        color: #333;
+        margin-bottom: 5px;
+    }
+
+    p {
+        color: #444;
+        margin-top: 0;
+    }
+
+    .welcome-message {
+        text-align: center;
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+</style>
+
+<div class="welcome-message">
+    Bienvenue à notre Boutique Solidaire
+</div>
+
+<table>
+    <tr>
+        <td>
+            <h3>Notre concept</h3>
+            <p>Notre concept est simple mais puissant. Chaque produit que vous trouverez ici est proposé à un prix symbolique. Ces articles, soigneusement sélectionnés, ne représentent pas seulement des objets, mais des opportunités de faire la différence.</p>
+        </td>
+        <td>
+            <h3>Au Cœur de Chaque Vente</h3>
+            <p>Chaque vente effectuée sur notre site contribue directement à des causes nobles. Les recettes générées ne servent pas seulement à acquérir des biens, mais à apporter un soutien réel là où il est nécessaire.</p>
+        </td>
+        <td>
+            <h3>Des Résultats Tangibles</h3>
+            <p>Les prix symboliques que nous appliquons ne sont pas simplement un chiffre, mais une invitation à participer à quelque chose de plus grand que soi. C'est l'occasion de faire une différence, même à travers de petits gestes.</p>
+        </td>
+        <td>
+            <h3>Votre Achat, Votre Contribution</h3>
+            <p>Chaque article que vous achetez ici n'est pas seulement un bien matériel. C'est un geste de solidarité, une contribution directe à des projets caritatifs qui ont un impact réel. Choisir notre boutique, c'est choisir de faire partie d'une communauté engagée.</p>
+        </td>
+        <td>
+            <h3>Un Grand Merci pour Votre Soutien</h3>
+            <p>Au nom de toute l'équipe, nous tenons à vous remercier chaleureusement pour votre soutien. Chaque achat, chaque geste compte. Ensemble, nous construisons un avenir plus solidaire et bienveillant. Faites vos achats en toute conscience, et merci de contribuer à rendre le monde meilleur.</p>
+        </td>
+    </tr>
+</table>
+
+   {% endblock %}
+
+{% block blog %}
+
+<style>
+    #search-form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        margin-top: 20px;
+    }
+
+    #search-text {
+        font-size: 20px;
+        color: black;
+        font-weight: bold;
+    }
+
+    #start-recognition {
+        background-color: red; /* Change background color to red */
+        color: white;
+    }
+    #search-input {
+        width: 100%; /* Set width to 100% to take the full width */
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        margin-top: 10px; /* Add margin at the top */
+        font-size: 14px;
+    }
+
+    button {
+        padding: 10px;
+        border: none;
+        cursor: pointer;
+        border-radius: 4px;
+    }
+
+ 
+    #search-product {
+        background-color: #007BFF;
+        color: white;
+    }
+</style>
+
+ <div class="row justify-content-center mb-5 pb-3">
+                <div class="col-md-7 heading-section ftco-animate text-center">
+                    <p class="lead">Faites une différence en choisissant des produits qui soutiennent des causes nobles</p>
+                </div>
+            </div>
+<form id="search-form">
+    <span id="search-text">Faire une recherche vocale pour trouver le produit que vous souhaitez acheter : </span>
+    <input type="text" id="search-input" placeholder="Recherche..." />
+    <button type="button" id="start-recognition" onclick="startRecognition()">
+        <i class="fas fa-microphone"></i>
+    </button>
+    <button type="button" id="search-product" onclick="searchProduct()">
+        Chercher
+    </button>
+</form>
+
+<!-- The container where the search results will be displayed -->
+<div id="search-results-container"></div>
+<!-- Your JavaScript code -->
+<script>
+    function searchProduct() {
+        // Get the search query from the input field
+        const productName = document.getElementById('search-input').value;
+
+        // Redirect to the search results page with the search query as a parameter
+        window.location.href = '{{ path('app_visual_search_results') }}?productName=' + encodeURIComponent(productName);
+    }
+
+    function startRecognition() {
+        let recognition;
+
+        if ('webkitSpeechRecognition' in window) {
+            recognition = new webkitSpeechRecognition();
+            recognition.continuous = false;
+            recognition.interimResults = false;
+            recognition.lang = 'fr-FR';
+
+            recognition.onresult = function (event) {
+                const transcript = event.results[0][0].transcript;
+
+                // Update the text field with the voice transcription
+                document.getElementById('search-input').value = transcript;
+            };
+
+            recognition.onerror = function (event) {
+                console.error('Erreur de reconnaissance vocale :', event.error);
+            };
+
+            recognition.start();
+        } else {
+            alert('La reconnaissance vocale n\'est pas prise en charge par votre navigateur.');
+        }
+    }
+</script>
+
+
+
+    <!-- Le reste de votre contenu ... -->
+
+    <div id="search-results-container">
+        <!-- Les résultats de la recherche seront affichés ici -->
+    </div>
+
+    <!-- Inclure jQuery (si ce n'est pas déjà fait) -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <!-- Votre code JavaScript pour la reconnaissance vocale et la recherche -->
+
+    <!-- Inclure jQuery (si ce n'est pas déjà fait) -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <!-- Votre code JavaScript pour la reconnaissance vocale -->
+    
+  
+
+
+
+
+
+
+
+
+
+
+
+    <section class="ftco-section">
+        <div class="container">
+           
+
+
+
+
+
+
+
+
+
+
+  
+
+          {{ form_start(form) }}
+<form method="post">
+    {{ form_widget(form) }}
+</form>
+{{ form_end(form) }}
+
+
+
+            <div class="row" id="produits-container">
+                {% for produit in produits_infos %}
+                    <div class="col-md-3 col-sm-6 d-flex ftco-animate">
+                        <div class="blog-entry align-self-stretch custom-block bg-white shadow-lg" style="opacity: 0; border-radius: 10px; overflow: hidden; position: relative;">
+                            <a href="#" class="block-20 product-image" style="background-image: url('{{ asset('images/' ~ produit.getImage()) }}');"></a>
+                            <div class="text p-4 d-block">
+                                <h3 class="heading mt-3"><a href="#">{{ produit.getNomProd() }}</a></h3>
+                                <p>{{ produit.getDescProd() }}</p>
+                                <div style="position: absolute; top: 10px; right: 10px;">
+                                    <div class="price" style="font-size: 20px; color: #e07c5e; font-weight: bold;">
+                                        &euro;{{ produit.getPrixProd() }}
+                                    </div>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-end" style="height: 100%;">
+                                    <div class="article-buttons">
+                                        <a href="{{ path('app_confirm_achat', {'produit_id': produit.getId()}) }}" class="btn btn-success" style="border-radius: 25px;">
+                                            <i class="fas fa-heart" style="margin-right: 5px;"></i> Acheter
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% if loop.index % 4 == 0 and not loop.last %}</div><div class="row">{% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <style>
+        .product-image {
+            height: 150px; /* Définissez la hauteur fixe pour les images */
+            background-size: contain; /* Mettez à l'échelle pour s'ajuster entièrement dans le conteneur */
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+    </style>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var produitItems = document.getElementsByClassName("blog-entry");
+            var delay = 1000; // Délai en millisecondes (1 seconde)
+
+            for (var i = 0; i < produitItems.length; i++) {
+                setTimeout(function (index) {
+                    produitItems[index].style.opacity = 1;
+                }, i * delay, i);
+            }
+        });
+    </script>
+
+     
+{% endblock %}
+
+
+{% block whiteblocs %}{% endblock %}
+
+{% block causes %}{% endblock %}
+{% block donations %}{% endblock %}
+
+{% block pictures %}{% endblock %}
+
+{% block events %}{% endblock %}
+
+{% block volunteer %}{% endblock %}
